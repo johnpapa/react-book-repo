@@ -1,3 +1,61 @@
 # Summary
 
-* [First Chapter](chapter1.md)
+* [Introduction](README.md)
+
+## BASICS
+
+* Building blocks
+* [JSX](jsx.md)
+* [Set up](set-up.md)
+* [Thinking in Components](thinking-in-components.md)
+* [Your first Component](your-first-component.md)
+* Props
+* [State](state.md)
+* [Life cycle](life-cycle.md)
+* [Dumb/Presentational component](dumbpresentational-component.md)
+* [Dumb/Presentational component](dumbpresentational-component.md)
+
+## ROUTING
+
+* Core concepts
+* Set up
+* Dealing with router and query params
+* Dealing with lazy loading
+
+## ADVANCED
+
+* Component Patterns
+* DataContext API
+
+## STYLING
+
+* [styled-components](styled-components.md)
+
+## TESTING
+
+* [Jest](testing/testing.md)
+* Nock
+* Enzyme
+
+## REDUX
+
+* Redux - overview
+* Actions
+* Reducers
+* Store
+* Selectors
+* Container vs Presentational components
+* Add Redux to React
+* Handling side effects with Sagas
+* Redux Form
+
+## MOBX
+
+* Observables
+* Computed variables
+* Reactions
+
+## LIBRARIES
+
+* Styleguidist
+
