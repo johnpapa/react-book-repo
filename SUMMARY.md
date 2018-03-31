@@ -4,17 +4,23 @@
 
 ## BASICS
 
-* Building blocks
+* [Building blocks](building-blocks.md)
 * [JSX](jsx.md)
 * [Set up](set-up.md)
-* [Thinking in Components](thinking-in-components.md)
 * [Your first Component](your-first-component.md)
 * Props
+* [Thinking in Components](thinking-in-components.md)
 * [State](state.md)
 * [Life cycle](life-cycle.md)
 * [Dumb/Presentational component](dumbpresentational-component.md)
 * [Dealing with methods/actions](dealing-with-methodsactions.md)
 * [Conditional rendering](conditional-rendering.md)
+
+## STYLING
+
+* [styled-components](styled-components.md)
+
+## IMAGES
 
 ## ROUTING
 
@@ -28,10 +34,6 @@
 * Component Patterns
 * DataContext API
 * Wrapping form elements
-
-## STYLING
-
-* [styled-components](styled-components.md)
 
 ## TESTING
 
