@@ -27,6 +27,7 @@
 
 * Component Patterns
 * DataContext API
+* Wrapping form elements
 
 ## STYLING
 
