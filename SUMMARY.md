@@ -13,7 +13,8 @@
 * [State](state.md)
 * [Life cycle](life-cycle.md)
 * [Dumb/Presentational component](dumbpresentational-component.md)
-* [Dumb/Presentational component](dumbpresentational-component.md)
+* [Dealing with methods/actions](dealing-with-methodsactions.md)
+* [Conditional rendering](conditional-rendering.md)
 
 ## ROUTING
 
