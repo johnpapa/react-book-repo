@@ -56,6 +56,18 @@ The drawbacks to the above approach is that everything is compiled at runtime wh
 
 ## create-react-app
 
+Create react is a scaffolder developed by Dan Abramov. With it you are able to scaffold a React application with easy and is up and running in no time. The simplest way to get started is downloading it, like so:
+
+```
+npm install create-react-app -g
+```
+
+Scaffolding an app is almost as simple as downloading it:
+
+```
+create-react-app <My app name>
+```
+
 ## do it yourself
 
 ## 
