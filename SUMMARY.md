@@ -8,7 +8,7 @@
 * [JSX](jsx.md)
 * [Set up](set-up.md)
 * [Component introduction](your-first-component.md)
-* Props
+* [Props](props.md)
 * [Thinking in Components](thinking-in-components.md)
 * [State](state.md)
 * [Life cycle](life-cycle.md)
