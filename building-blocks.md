@@ -2,6 +2,8 @@
 
 * Components
 * JSX
+* React
+* ReactDOM
 
 
 
