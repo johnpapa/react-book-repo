@@ -24,6 +24,37 @@ In the above code we assign `jediData` to the attribute `jedi`. An attribute on 
 
 ## Assigning a list
 
+We usually deal with either rendering an object or a list or primitive. To render a list is almost as simple as rendering an object. A list of Jedis is only about rendering a list Jedi components, like so:
+
+```js
+const jedis = [{
+  name: 'Yoda'
+},
+{
+  name: 'Palpatine'
+}]
+
+class Jedi extends React.Component {
+  render() {
+    return (
+      <div>Name: {this.props.jedi.name}</div>
+    );
+  }
+}
+
+class App extends Component {
+  render() {
+    return (
+      <div>
+        {jedis.map( jedi => <Jedi jedi={jedi} />)}
+      </div>
+    );
+  }
+}
+```
+
+Above we use a simple `map()` function to output a list of `Jedi` elements. For each item in the list we bind that to our `jedi` property on our `Jedi` component. 
+
 ## PropTypes
 
 ## Summary
