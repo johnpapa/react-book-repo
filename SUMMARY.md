@@ -15,8 +15,10 @@
 * [Dumb/Presentational component](dumbpresentational-component.md)
 * [Dealing with methods/actions](dealing-with-methodsactions.md)
 * [Conditional rendering](conditional-rendering.md)
-* Dealing with input elements
-* Forms
+* [Dealing with input elements](dealing-with-input-elements.md)
+* [Forms](forms.md)
+* Wrapper Components
+* AJAX /HTTP
 
 ## STYLING
 
@@ -29,13 +31,14 @@
 * Core concepts
 * Set up
 * Dealing with router and query params
-* Dealing with lazy loading
+* Dealing with lazy loading/ code splitting
 
 ## ADVANCED
 
 * Component Patterns
 * DataContext API
 * Wrapping form elements
+* Decorators
 
 ## TESTING
 
