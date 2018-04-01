@@ -2,7 +2,7 @@
 
 ## unpkg/ script tags
 
-This version is simplest to start with if you are beginner. This enables you to dive straight into React and learn its features. 
+This version is simplest to start with if you are beginner. This enables you to dive straight into React and learn its features.
 
 ```js
 // app.js
@@ -38,7 +38,7 @@ ReactDOM.render(<Application />, document.getElementById('app'));
 </html>
 ```
 
-You can easily serve this up by installing for example http-server 
+You can easily serve this up by installing for example http-server
 
 ```
 npm install http-server -g
@@ -51,6 +51,8 @@ http-server -p 5000
 
 // should say 'App' in your browser at localhost:5000
 ```
+
+The drawbacks to the above approach is that everything is compiled at runtime which is horribly slow but its great for learning React, but please don't put it like this in production.
 
 ## create-react-app
 
