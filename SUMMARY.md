@@ -7,7 +7,7 @@
 * [Building blocks](building-blocks.md)
 * [JSX](jsx.md)
 * [Set up](set-up.md)
-* [Your first Component](your-first-component.md)
+* [Component introduction](your-first-component.md)
 * Props
 * [Thinking in Components](thinking-in-components.md)
 * [State](state.md)
