@@ -68,6 +68,8 @@ Scaffolding an app is almost as simple as downloading it:
 create-react-app <My app name>
 ```
 
+create-react-app is a very active project and can truly help you in the beginning of you learning React and even later. Question is really how much you want to be able to configure your project. When you become skilled enough you may come to a point when you don't need create-react-app, but until that point, it is your friend. You can read more on it in the official documentation, [https://github.com/facebook/create-react-app](https://github.com/facebook/create-react-app)
+
 ## do it yourself
 
 ## 
