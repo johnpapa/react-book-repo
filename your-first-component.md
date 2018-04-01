@@ -35,7 +35,7 @@ Ok, great I know how to create a Component but how do I actually create a React 
   <body>
     <!-- This is where our app will live  -->
     <div id="app"></div>
-    
+
     <!-- These are script tags we need for React, JSX and ES2015 features  -->
     <script src="https://fb.me/react-15.0.0.js"></script>
     <script src="https://fb.me/react-dom-15.0.0.js"></script>
@@ -68,7 +68,6 @@ class Application extends React.Component {
 }
 
 ReactDOM.render(<Application />, document.getElementById('app'));
-
 ```
 
 
