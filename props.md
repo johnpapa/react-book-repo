@@ -34,6 +34,15 @@ const jedis = [{
   name: 'Palpatine'
 }]
 
+class Jedis extends React.Component {
+  render() {
+      return (
+        <div>{this.props.jedis.map( jedi => <Jedi jedi={jedi} />)}</div>
+      );
+    }
+  }
+}
+
 class Jedi extends React.Component {
   render() {
     return (
@@ -46,7 +55,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        {jedis.map( jedi => <Jedi jedi={jedi} />)}
+        <Jedis jedis={jedis} />
       </div>
     );
   }
@@ -88,7 +97,7 @@ class App extends Component {
   render() {
     return (
       <div>
-      
+
         <!-- 2. Giving it BAD input on purpose -->
         <Jedi jedi={{ title: 'Vader' }} />
 
@@ -99,7 +108,6 @@ class App extends Component {
 }
 
 export default App;
-
 ```
 
 What've done above is to import the prop-types, like so:
@@ -124,7 +132,7 @@ Below in our markup we are provoking an error by creating a Jedi component and g
 
 ```
 <!-- 2. Giving it BAD input on purpose -->
-<Jedi jedi={{ title: 'Vader' }} />        
+<Jedi jedi={{ title: 'Vader' }} />
 ```
 
 This produces the following error in our console:
@@ -138,7 +146,7 @@ This produces the following error in our console:
 The reason we get the above error message is that we provide an object with the property title instead of name. If we were to change the above to the following, the error would disappear:
 
 ```
-<Jedi jedi={{ name: 'Vader' }} /> 
+<Jedi jedi={{ name: 'Vader' }} />
 ```
 
 ### Best practice
@@ -168,8 +176,6 @@ We introduce props. They are the way we are able to pass data into a component. 
 * We simply declare them as attribute on our React element when we want to pass in something &lt;Elem attr={data}&gt;
 * We can pass in object or a list, both works
 * We should use the library prop-types to ensure our component get the data they expect so we can capture errors early
-
-
 
 
 
