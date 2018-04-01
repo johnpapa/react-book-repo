@@ -15,6 +15,8 @@
 * [Dumb/Presentational component](dumbpresentational-component.md)
 * [Dealing with methods/actions](dealing-with-methodsactions.md)
 * [Conditional rendering](conditional-rendering.md)
+* Dealing with input elements
+* Forms
 
 ## STYLING
 
