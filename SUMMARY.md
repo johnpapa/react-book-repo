@@ -23,6 +23,8 @@
 ## STYLING
 
 * [styled-components](styled-components.md)
+* inline styling
+* sass/less
 
 ## IMAGES
 
