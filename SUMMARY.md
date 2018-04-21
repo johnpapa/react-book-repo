@@ -24,8 +24,8 @@
 ## STYLING
 
 * [styled-components](styled-components.md)
-* inline styling
-* sass/less
+* [inline styling](inline-styling.md)
+* [sass/less](sassless.md)
 
 ## IMAGES
 
@@ -33,15 +33,15 @@
 
 * Core concepts
 * Set up
-* Dealing with router and query params
-* Dealing with lazy loading/ code splitting
+* [Dealing with router and query params](routing/dealing-with-router-and-query-params.md)
+* [Dealing with lazy loading/ code splitting](routing/dealing-with-lazy-loading-code-splitting.md)
 
 ## ADVANCED
 
-* Component Patterns
-* DataContext API
-* Wrapping form elements
-* Decorators
+* [Component Patterns](advanced/component-patterns.md)
+* [DataContext API](advanced/datacontext-api.md)
+* [Wrapping form elements](advanced/wrapping-form-elements.md)
+* [Decorators](advanced/decorators.md)
 
 ## TESTING
 
