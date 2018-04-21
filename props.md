@@ -70,7 +70,7 @@ As our components becomes more and more complicated we want to ensure we use the
 
 ```
 npm install prop-types
-yarn add prop-type // or this one, depending on if you are using NPM or Yarn
+yarn add prop-types // or this one, depending on if you are using NPM or Yarn
 ```
 
 Simply use it by:
@@ -84,7 +84,13 @@ Let's show the above in code:
 import React, { Component } from 'react';
 import PropType from 'prop-types';
 
-// leaving out the data
+class Jedi extends React.Component {
+  render() {
+    return (
+      <div>Name: {this.props.jedi.name}</div>
+    );
+  }
+}
 
 // 1. declaring the types it consists of
 Jedi.propTypes = {
@@ -143,7 +149,7 @@ This produces the following error in our console:
 
 **    in App \(at index.js:7\)**
 
-The reason we get the above error message is that we provide an object with the property title instead of name. If we were to change the above to the following, the error would disappear:
+The reason we get the above error message is that we provide an object with the property `title` instead of `name`. If we were to change the above to the following, the error would disappear:
 
 ```
 <Jedi jedi={{ name: 'Vader' }} />
@@ -173,7 +179,7 @@ class Jedi extends React.Component {
 
 We introduce props. They are the way we are able to pass data into a component. We have learned the following:
 
-* We simply declare them as attribute on our React element when we want to pass in something &lt;Elem attr={data}&gt;
+* We simply declare them as attribute on our React element when we want to pass in something `<Elem attr={data}>`
 * We can pass in object or a list, both works
 * We should use the library prop-types to ensure our component get the data they expect so we can capture errors early
 
