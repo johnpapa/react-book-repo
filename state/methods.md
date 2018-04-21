@@ -15,7 +15,7 @@ class Element extends React.Component {
  clicked() {
    console.log('clicked'); 
  }
- 
+
  render() {
    return (
      <button onClick={this.clicked}></button>
@@ -37,7 +37,7 @@ class Element extends React.Component {
  clicked() {
    console.log('clicked ' + this.state.str); 
  }
- 
+
  render() {
    return (
      <button onClick={this.clicked}></button>
@@ -63,7 +63,7 @@ class Element extends React.Component {
  clicked() {
    console.log('clicked ' + this.state.str); 
  }
- 
+
  render() {
    return (
      <button onClick={this.clicked}></button>
@@ -79,22 +79,94 @@ constructor() {
     super();
     this.clicked = this.clicked.bind(this);
   }
-
-
 ```
 
 ### Two other versions of binding the method
 
 At this point our code works again but it doesn't feel all too pretty. Is there a better way? Actually there are two more ways we could solve this:
 
-* declare our method as a const parameter in the class
 * invoke our method as a lambda
+* declare our method as a field in the class
+
+#### Invoke method as lambda
 
 Let's look at the first mentioned variant:
 
-In this 
+In this version we use a lambda in the set up in the markup. The code looks like this:
 
+```
+class Element extends React.Component {
 
+  constructor() {
+    super();
+    this.clicked = this.clicked.bind(this);
+  }
 
+ state = {
+   str: 'test'
+ } 
 
+ clicked() {
+   console.log('clicked ' + this.state.str); 
+ }
+
+ render() {
+   return (
+     <button onClick={() => this.clicked()}></button>
+   )
+ }
+}
+```
+
+Let's zoom in to the change:
+
+```
+<button onClick={() => this.clicked()}></button>
+```
+
+#### Declare method as a field
+
+In this version we declare our method a little bit differently:
+
+```
+class Element extends React.Component {
+
+  constructor() {
+    super();
+    this.clicked = this.clicked.bind(this);
+  }
+
+ state = {
+   str: 'test'
+ } 
+
+ clicked = () => {
+   console.log('clicked ' + this.state.str); 
+ }
+
+ render() {
+   return (
+     <button onClick={this.clicked}></button>
+   )
+ }
+}
+```
+
+Notice the difference between declaring the method in the old way, like this:
+
+```
+clicked() {
+   console.log('clicked ' + this.state.str); 
+}
+```
+
+Now we instead declare clicked as a field like so:
+
+```
+clicked = () => {
+   console.log('clicked ' + this.state.str); 
+}
+```
+
+This is the preferred way of declaring methods on a class.
 
