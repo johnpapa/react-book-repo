@@ -9,6 +9,7 @@
 * [Set up](set-up.md)
 * [Component introduction](your-first-component.md)
 * [Props](props.md)
+* [Methods](state/methods.md)
 * [State](state.md)
 * [Thinking in Components](thinking-in-components.md)
 * [Conditional rendering](conditional-rendering.md)
