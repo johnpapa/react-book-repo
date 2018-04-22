@@ -83,7 +83,70 @@ Let's highlight the ternary expression:
   <div>loading...</div> :
   <div>{this.state.data}</div>
 }
+```
 
+And of course it is possible to use normal `if`, `else if`, `else` clauses when rendering, like so:
+
+```
+class Element extends React.Component {
+
+  state = {
+    loading: false,
+    data: void 0
+  };
+
+  const toggle = () => {
+    this.setState({
+      show: this.state.show
+    });
+  }
+  
+  const click = () => {
+    this.setState({
+      loading: true
+    });
+  }
+  
+  getData() {
+    if (this.state.loading) {
+      return <div>loading...</div>;
+    } else if(this.state.data) {
+      return <div>{this.state.data}</div>;
+    }
+    return <div>{this.state.data}</div>;
+  }
+  
+ 
+
+  render() {
+    return (
+      <React.Fragment>
+        <div>something</div>
+        { this.getData() }
+      </React.Fragment>
+    );
+
+  }
+}
+```
+
+We can't use `if`, `else if` and so on directly in the template but we can have a method `getData()` that can decide for us what ot render out. Let's highlight what we did above, define a getData\(\) method with conditional rendering:
+
+```
+getData() {
+  if (this.state.loading) {
+    return <div>loading...</div>;
+  } else if(this.state.data) {
+    return <div>{this.state.data}</div>;
+  }
+    return <div>{this.state.data}</div>;
+}
+```
+
+and calling it in the template like so:
+
+```
+{ this.getData() }
 ```
 
 
