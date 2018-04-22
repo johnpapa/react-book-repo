@@ -2,7 +2,7 @@
 
 Adding props to your component means we add attributes to our component element. We can read what these attributes are and make them part of the markup, like so:
 
-```
+```js
 const jediData = {
   name: 'Yoda'
 };
@@ -118,13 +118,13 @@ export default App;
 
 What've done above is to import the prop-types, like so:
 
-```
+```js
 import PropType from 'prop-types';
 ```
 
 Thereafter we extended our component by assigning an object propTypes to it, like so:
 
-```
+```js
 Jedi.propTypes = {
   jedi : PropType.shape({
     name: PropType.string.isRequired,
@@ -159,7 +159,7 @@ The reason we get the above error message is that we provide an object with the 
 
 It is considered best practice to use this lib. It is further considered a best practice to mark up every single input with a specific type. Also it's considered a better practice to move in the propTypes as member of the class, like so:
 
-```
+```js
 class Jedi extends React.Component {
   static propTypes = {
     jedi : PropType.shape({
