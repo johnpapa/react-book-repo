@@ -85,9 +85,11 @@ Let's highlight the ternary expression:
 }
 ```
 
+## Using if, else if, else
+
 And of course it is possible to use normal `if`, `else if`, `else` clauses when rendering, like so:
 
-```
+```js
 class Element extends React.Component {
 
   state = {
@@ -100,13 +102,13 @@ class Element extends React.Component {
       show: this.state.show
     });
   }
-  
+
   const click = () => {
     this.setState({
       loading: true
     });
   }
-  
+
   getData() {
     if (this.state.loading) {
       return <div>loading...</div>;
@@ -115,8 +117,8 @@ class Element extends React.Component {
     }
     return <div>{this.state.data}</div>;
   }
-  
- 
+
+
 
   render() {
     return (
@@ -132,7 +134,7 @@ class Element extends React.Component {
 
 We can't use `if`, `else if` and so on directly in the template but we can have a method `getData()` that can decide for us what ot render out. Let's highlight what we did above, define a getData\(\) method with conditional rendering:
 
-```
+```js
 getData() {
   if (this.state.loading) {
     return <div>loading...</div>;
@@ -145,7 +147,7 @@ getData() {
 
 and calling it in the template like so:
 
-```
+```js
 { this.getData() }
 ```
 
