@@ -89,5 +89,43 @@ by using `${props}` we are able to write code that checks the attributes of the 
 import styled, { css } from 'styled-components';
 ```
 
+## Adapting
+
+We can look at if certain attributes exist bet we can also set different values on a property depending on wether an attribute exist. Let's have a look at the below code where we change the border-radius depending wether a circle attribute is set:
+
+    const Button = styled.button`
+      background: black;
+      color: white;
+      border-radius: 7px;
+      padding: 20px;
+      margin: 10px;
+      font-size: 16px;
+      :disabled {
+        opacity: 0.4;
+      }
+      :hover {
+        box-shadow: 0 0 10px yellow;
+      }
+
+       ${props => props.primary && css`
+        background: green;
+        color: white;
+      `}
+
+      border-radius: ${props => (props.round ? '50%' : '7px')}
+    `;
+
+The interesting bit of the code is this:
+
+```
+border-radius: ${props => (props.round ? '50%' : '7px')}
+```
+
+We can trigger the above code to be rendered by declaring our Button like so:
+
+```
+<Button round >Round</Button>
+```
+
 
 
