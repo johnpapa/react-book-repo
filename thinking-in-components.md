@@ -376,7 +376,6 @@ Above we have broken out the Todo rendering into its own component. As you can s
 
     export default Todos;
 
-
 We now import the Todo component, like so:
 
 ```
@@ -389,5 +388,11 @@ Let's zoom in on the interesting part:
 <Todo todo={todo} key={todo.id} handleChecked={this.handleChecked} />
 ```
 
-Above we simple let the Todo component handle all the rendering and we simply provide it with the data todo and the method handleChecked\(\).
+Above we simple let the Todo component handle all the rendering and we simply provide it with the data todo and the method handleChecked\(\). Ok so we mentioned presentational components so far so what is the other kind of component the container component. A container component is simply a component where data and logic lives. It 'contains' the meat of the application. In  our app the Todos component is a container component and the Todo is a presentational component. If you are building your app in the right way you will end up with a majority of presentational components and a few container components.
+
+## Summary
+
+We set out to create a working Todo app. We did so. We also set out to break down the mentioned app into many small components where each component was more focused on its task making future changes or reuse a lot easier. We introduced the term Dumb/Presentation component and Container component and explained what those were. to show that it only relied on inputs. 
+
+
 
