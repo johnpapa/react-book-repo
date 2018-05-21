@@ -191,5 +191,13 @@ We can easily take an existing  style and add to it by using the method extend, 
       font-size: 48px;
     `;
 
+## Change styled components
 
+In some cases you might want to apply the style intended for a specific type of element have that applied to another type of element. A common example is button.You might like all the styling a specific button comes with but you might want to apply that on an anchor element instead. Using the withComponent\(\) method allows you to do just that:
+
+```
+const LinkButton = Button.withComponent('a');
+```
+
+The end result of the above operation is a link tag with all the styling of a Button.
 
