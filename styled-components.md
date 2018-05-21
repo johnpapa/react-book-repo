@@ -29,20 +29,22 @@ Now to use it we need to use backticks \`, like so:
 
 As we can see above we call styled.nameOfElement\`\` to define a style for our element. Let's add some style to it:
 
-    const Button = styled.button`
-      background: black;
-      color: white;
-      border-radius: 7px;
-      padding: 20px;
-      margin: 10px;
-      font-size: 16px;
-      :disabled {
-        opacity: 0.4;
-      }
-      :hover {
-        box-shadow: 0 0 10px yellow;
-      }
-    `;
+```css
+const Button = styled.button`
+  background: black;
+  color: white;
+  border-radius: 7px;
+  padding: 20px;
+  margin: 10px;
+  font-size: 16px;
+  :disabled {
+    opacity: 0.4;
+  }
+  :hover {
+    box-shadow: 0 0 10px yellow;
+  }
+`;
+```
 
 What we can see from the above example is that we are able to use normal CSS properties in combination with pseudo selectors like `:disabled` and `:hover` .
 
@@ -56,25 +58,27 @@ We can look at the attributes of our element and determine the styling. Imagine 
 
 Styled components can easily pick up on this attribute by doing the following:
 
-    const Button = styled.button`
-      background: black;
-      color: white;
-      border-radius: 7px;
-      padding: 20px;
-      margin: 10px;
-      font-size: 16px;
-      :disabled {
-        opacity: 0.4;
-      }
-      :hover {
-        box-shadow: 0 0 10px yellow;
-      }
+```css
+const Button = styled.button`
+  background: black;
+  color: white;
+  border-radius: 7px;
+  padding: 20px;
+  margin: 10px;
+  font-size: 16px;
+  :disabled {
+    opacity: 0.4;
+  }
+  :hover {
+    box-shadow: 0 0 10px yellow;
+  }
 
-       ${props => props.primary && css`
-        background: green;
-        color: white;
-      `}
-    `;
+   ${props => props.primary && css`
+    background: green;
+    color: white;
+  `}
+`;
+```
 
 Let's zoom in on the needed addition:
 
@@ -93,27 +97,29 @@ import styled, { css } from 'styled-components';
 
 We can look at if certain attributes exist bet we can also set different values on a property depending on wether an attribute exist. Let's have a look at the below code where we change the border-radius depending wether a circle attribute is set:
 
-    const Button = styled.button`
-      background: black;
-      color: white;
-      border-radius: 7px;
-      padding: 20px;
-      margin: 10px;
-      font-size: 16px;
-      :disabled {
-        opacity: 0.4;
-      }
-      :hover {
-        box-shadow: 0 0 10px yellow;
-      }
+```css
+const Button = styled.button`
+  background: black;
+  color: white;
+  border-radius: 7px;
+  padding: 20px;
+  margin: 10px;
+  font-size: 16px;
+  :disabled {
+    opacity: 0.4;
+  }
+  :hover {
+    box-shadow: 0 0 10px yellow;
+  }
 
-       ${props => props.primary && css`
-        background: green;
-        color: white;
-      `}
+   ${props => props.primary && css`
+    background: green;
+    color: white;
+  `}
 
-      border-radius: ${props => (props.round ? '50%' : '7px')}
-    `;
+  border-radius: ${props => (props.round ? '50%' : '7px')}
+`;
+```
 
 The interesting bit of the code is this:
 
