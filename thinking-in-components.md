@@ -13,7 +13,7 @@ We start off by a list of todos and we realise we need to be able to render said
 
 A todo has a description. Next interesting thing to think about is how do we complete a todo. The intention of having a list of things we need to carry out it as at some point in time we will hopefully carry out those items on the list. Now we have to ask ourselves wether we want to remove a finished item in our todo list or simply mark it as completed. We opt for the latter to feel good about ourselves for completing it but also so what we can see what we have carried out historically. This tells us something about our data structure. It should most likely look something like this:
 
-```
+```js
 [{
  title: 'clean',
  done: false
@@ -29,7 +29,7 @@ The above list seems like a reasonable design of the data structure and now we c
 
 Most likely we will try out with something like this:
 
-```
+```js
 {todos.map(todo => (
   <div>
   <input type="checkbox" checked={todo.done} /> {todo.title} 
@@ -39,46 +39,48 @@ Most likely we will try out with something like this:
 
 At this point we are able to render our todo list but we are not able to change the value of the todo. Let's build this out to a real React component class and add support for changing a todo to done.
 
-    import React, { Component } from 'react';
-    import styled from 'styled-components';
+```js
+import React, { Component } from 'react';
+import styled from 'styled-components';
 
-    import './App.css';
+import './App.css';
 
-    const todos = [{
-      title: 'clean',
-      done: false,
-    },
-    {
-      title: 'do the dishes',
-      done: true,
-    }];
+const todos = [{
+  title: 'clean',
+  done: false,
+},
+{
+  title: 'do the dishes',
+  done: true,
+}];
 
-    const Todos = styled.div`
-      padding: 30px;
-    `;
+const Todos = styled.div`
+  padding: 30px;
+`;
 
-    const Todo = styled.div`
-      box-shadow: 0 0 5px gray;
-      padding: 30px;
-      margin-bottom: 10px;
-    `;
+const Todo = styled.div`
+  box-shadow: 0 0 5px gray;
+  padding: 30px;
+  margin-bottom: 10px;
+`;
 
-    class App extends Component {
-      render() {
-        return (
-          <Todos>
-            <h2>Todos</h2>
-            {todos.map(todo => (
-              <Todo>
-                <input type="checkbox" checked={todo.done} /> {todo.title}
-              </Todo>
-              ))}
-          </Todos>
-        );
-      }
-    }
+class App extends Component {
+  render() {
+    return (
+      <Todos>
+        <h2>Todos</h2>
+        {todos.map(todo => (
+          <Todo>
+            <input type="checkbox" checked={todo.done} /> {todo.title}
+          </Todo>
+          ))}
+      </Todos>
+    );
+  }
+}
 
-    export default App;
+export default App;
+```
 
 Above we have created a fully working component but we are yet to add support for changing our `todos`. Let's do that next. We need to do the following:
 
@@ -101,70 +103,72 @@ state = {
 
 Let's now add the final code:
 
-    import React, { Component } from 'react';
-    import styled from 'styled-components';
+```js
+import React, { Component } from 'react';
+import styled from 'styled-components';
 
-    import './App.css';
+import './App.css';
 
-    const todos = [{
-      title: 'clean',
-      done: false,
-      id: 1,
-    },
-    {
-      title: 'do the dishes',
-      done: true,
-      id: 2,
-    }];
+const todos = [{
+  title: 'clean',
+  done: false,
+  id: 1,
+},
+{
+  title: 'do the dishes',
+  done: true,
+  id: 2,
+}];
 
-    const Todos = styled.div`
-      padding: 30px;
-    `;
+const Todos = styled.div`
+  padding: 30px;
+`;
 
-    const Todo = styled.div`
-      box-shadow: 0 0 5px gray;
-      padding: 30px;
-      margin-bottom: 10px;
-    `;
+const Todo = styled.div`
+  box-shadow: 0 0 5px gray;
+  padding: 30px;
+  margin-bottom: 10px;
+`;
 
-    class App extends Component {
-      state = {
-        todos,
-      };
+class App extends Component {
+  state = {
+    todos,
+  };
 
-      handleChecked = (todo) => {
-        const newTodos = this.state.todos.map(t => {
-          if (t.id === todo.id) {
-            return { ...t, done: !t.done };
-          }
-          return t;
-        });
-
-        this.setState({
-          todos: newTodos,
-        });
+  handleChecked = (todo) => {
+    const newTodos = this.state.todos.map(t => {
+      if (t.id === todo.id) {
+        return { ...t, done: !t.done };
       }
+      return t;
+    });
 
-      render() {
-        return (
-          <Todos>
-            <h2>Todos</h2>
-            {this.state.todos.map(todo => (
-              <Todo key={todo.id}>
-                <input type="checkbox" onChange={() => this.handleChecked(todo)} checked={todo.done} /> 
-                {todo.title}
-              </Todo>
-              ))}
-          </Todos>
-        );
-      }
-    }
+    this.setState({
+      todos: newTodos,
+    });
+  }
 
-    export default App;
+  render() {
+    return (
+      <Todos>
+        <h2>Todos</h2>
+        {this.state.todos.map(todo => (
+          <Todo key={todo.id}>
+            <input type="checkbox" onChange={() => this.handleChecked(todo)} checked={todo.done} /> 
+            {todo.title}
+          </Todo>
+          ))}
+      </Todos>
+    );
+  }
+}
+
+export default App;
+```
 
 Let's zoom in on the `handleChecked()` method here to realise what we have done:
 
-```
+```js
 handleChecked = (todo) => {
   const newTodos = this.state.todos.map(t => {
     if (t.id === todo.id) {
@@ -202,63 +206,65 @@ So far we have everything inside of the App component and we don't want our enti
 
 Our Todos.js will contain pretty much all of what App.js used to contain:
 
-    // Todos.js
+```js
+// Todos.js
 
-    import React, { Component } from 'react';
-    import styled from 'styled-components';
-    import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-    const TodosContainer = styled.div`
-      padding: 30px;
-    `;
+const TodosContainer = styled.div`
+  padding: 30px;
+`;
 
-    const Todo = styled.div`
-      box-shadow: 0 0 5px gray;
-      padding: 30px;
-      margin-bottom: 10px;
-    `;
+const Todo = styled.div`
+  box-shadow: 0 0 5px gray;
+  padding: 30px;
+  margin-bottom: 10px;
+`;
 
-    class Todos extends Component {
-      static propTypes = {
-        todos: PropTypes.array.isRequired,
+class Todos extends Component {
+  static propTypes = {
+    todos: PropTypes.array.isRequired,
+  }
+
+  state = {
+    todos: this.props.todos,
+  };
+
+  handleChecked = (todo) => {
+    const newTodos = this.state.todos.map(t => {
+      if (t.id === todo.id) {
+        return { ...t, done: !t.done };
       }
+      return t;
+    });
 
-      state = {
-        todos: this.props.todos,
-      };
+    this.setState({
+      todos: newTodos,
+    });
+  }
 
-      handleChecked = (todo) => {
-        const newTodos = this.state.todos.map(t => {
-          if (t.id === todo.id) {
-            return { ...t, done: !t.done };
-          }
-          return t;
-        });
+  render() {
+    return (
+      <TodosContainer>
+        <h2>Todos</h2>
+        {this.state.todos.map(todo => (
+          <Todo key={todo.id}>
+            <input type="checkbox" onChange={() => this.handleChecked(todo)} checked={todo.done} /> {todo.title}
+          </Todo>
+          ))}
+      </TodosContainer>
+    );
+  }
+}
 
-        this.setState({
-          todos: newTodos,
-        });
-      }
-
-      render() {
-        return (
-          <TodosContainer>
-            <h2>Todos</h2>
-            {this.state.todos.map(todo => (
-              <Todo key={todo.id}>
-                <input type="checkbox" onChange={() => this.handleChecked(todo)} checked={todo.done} /> {todo.title}
-              </Todo>
-              ))}
-          </TodosContainer>
-        );
-      }
-    }
-
-    export default Todos;
+export default Todos;
+```
 
 The App.js will now look like the following:
 
-```
+```js
 import React, { Component } from 'react';
 
 import Todos from './Todos';
@@ -296,95 +302,99 @@ So far Todos.js is one massive component. We can break it down according to resp
 
 Let's make the necessary changes:
 
-    // Todo.js
+```js
+// Todo.js
 
-    import React from 'react';
-    import styled from 'styled-components';
-    import PropTypes from 'prop-types';
+import React from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-    const TodoContainer = styled.div`
-      box-shadow: 0 0 5px gray;
-      padding: 30px;
-      margin-bottom: 10px;
-    `;
+const TodoContainer = styled.div`
+  box-shadow: 0 0 5px gray;
+  padding: 30px;
+  margin-bottom: 10px;
+`;
 
-    const Todo = ({ todo, handleChecked }) => (
-      <TodoContainer key={todo.id}>
-        <input type="checkbox" onChange={() => handleChecked(todo)} checked={todo.done} />
-        {todo.title}
-      </TodoContainer>
-    );
+const Todo = ({ todo, handleChecked }) => (
+  <TodoContainer key={todo.id}>
+    <input type="checkbox" onChange={() => handleChecked(todo)} checked={todo.done} />
+    {todo.title}
+  </TodoContainer>
+);
 
-    Todo.propTypes = {
-      todo: PropTypes.shape({
-        title: PropTypes.string,
-        done: PropTypes.bool,
-        id: PropTypes.number,
-      }),
-      handleChecked: PropTypes.func,
-    };
+Todo.propTypes = {
+  todo: PropTypes.shape({
+    title: PropTypes.string,
+    done: PropTypes.bool,
+    id: PropTypes.number,
+  }),
+  handleChecked: PropTypes.func,
+};
 
-    export default Todo;
+export default Todo;
+```
 
 Above we have broken out the `Todo` rendering into its own component. As you can see the component is not defined as a class inheriting from React.Component but is simply just a function. This is called a presentation or dumb component. What makes it dumb is that it knows nothing about the context it is in only that it relies on input, `todo` and invokes any action that it is being provided through its props, namely `handleChecked()`. Our Todos file now looks a bit simpler like so:
 
-    // Todos.js
+```js
+// Todos.js
 
-    import React, { Component } from 'react';
-    import styled from 'styled-components';
-    import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-    import Todo from './Todo';
+import Todo from './Todo';
 
-    const TodosContainer = styled.div`
-      padding: 30px;
-    `;
+const TodosContainer = styled.div`
+  padding: 30px;
+`;
 
-    class Todos extends Component {
-      static propTypes = {
-        todos: PropTypes.array.isRequired,
+class Todos extends Component {
+  static propTypes = {
+    todos: PropTypes.array.isRequired,
+  }
+
+  state = {
+    todos: this.props.todos,
+  };
+
+  handleChecked = (todo) => {
+    const newTodos = this.state.todos.map(t => {
+      if (t.id === todo.id) {
+        return { ...t, done: !t.done };
       }
+      return t;
+    });
 
-      state = {
-        todos: this.props.todos,
-      };
+    this.setState({
+      todos: newTodos,
+    });
+  }
 
-      handleChecked = (todo) => {
-        const newTodos = this.state.todos.map(t => {
-          if (t.id === todo.id) {
-            return { ...t, done: !t.done };
-          }
-          return t;
-        });
+  render() {
+    return (
+      <TodosContainer>
+        <h2>Todos</h2>
+        {this.state.todos.map(todo => (
+          <Todo todo={todo} key={todo.id} handleChecked={this.handleChecked} />
+          ))}
+      </TodosContainer>
+    );
+  }
+}
 
-        this.setState({
-          todos: newTodos,
-        });
-      }
-
-      render() {
-        return (
-          <TodosContainer>
-            <h2>Todos</h2>
-            {this.state.todos.map(todo => (
-              <Todo todo={todo} key={todo.id} handleChecked={this.handleChecked} />
-              ))}
-          </TodosContainer>
-        );
-      }
-    }
-
-    export default Todos;
+export default Todos;
+```
 
 We now import the Todo component, like so:
 
-```
+```js
 import Todo from './Todo';
 ```
 
 Let's zoom in on the interesting part:
 
-```
+```js
 <Todo todo={todo} key={todo.id} handleChecked={this.handleChecked} />
 ```
 
