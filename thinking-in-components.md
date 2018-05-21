@@ -157,7 +157,6 @@ Let's now add the final code:
 
     export default App;
 
-
 Let's zoom in on the handleChecked method here to realise what we have done:
 
 ```
@@ -252,7 +251,6 @@ Our Todos.js will contain pretty much all of what App.js used to contain:
 
     export default Todos;
 
-
 The App.js will now look like the following:
 
 ```
@@ -282,8 +280,18 @@ class App extends Component {
 }
 
 export default App;
-
 ```
+
+## Breaking down the todos component
+
+So far Todos.js is one massive component. We can break it down according to responsibility. I mean it works to have it like it is but it's usually better to break down your app into small focused components, to make maintenance easier, but also make it easier to use certain components in other places. So what can we break down Todos.js into? Well we can at least break it down into:
+
+* Todos, this would render a list of Todo components and handle all the events
+* Todo, this would only be responsible for rendering a Todo and send any change action upwards
+
+Let's make the necessary changes:
+
+ 
 
 
 
