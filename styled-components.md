@@ -201,3 +201,40 @@ const LinkButton = Button.withComponent('a');
 
 The end result of the above operation is a link tag with all the styling of a Button.
 
+## Using the attribute function
+
+Sometimes all you need is just to change a small thing in the component styling. For that the attrs\(\) function allows you to add a property with a value. Let's illustrate how we can add this:
+
+    const FramedText = styled(Text).attrs({ title: 'framed' })`
+      border: solid 2px black;
+      color: blue;
+      font-size: 16px;
+      padding: 30px;
+    `;
+
+Above we have chained styled\(\) and attrs\(\) and we end with a double \` tick. Another example is:
+
+    const Button = styled.button.attrs({ title: 'titled' })`
+      background: black;
+      color: white;
+      border-radius: 7px;
+      padding: 20px;
+      margin: 10px;
+      font-size: 16px;
+      :disabled {
+        opacity: 0.4;
+      }
+      :hover {
+        box-shadow: 0 0 10px yellow;
+      }
+
+       ${props => props.primary && css`
+        background: green;
+        color: white;
+      `}
+
+      border-radius: ${props => (props.round ? '50%' : '7px')}
+    `;
+
+
+
