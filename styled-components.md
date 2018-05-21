@@ -133,5 +133,54 @@ We can trigger the above code to be rendered by declaring our Button like so:
 <Button round >Round</Button>
 ```
 
+## Styling an existing component
 
+This one is great for styling 3rd party components or one of your own components. Imagine you have the following components:
+
+```
+// Text.js
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const Text = ({ text }) => (
+  <div> Here is text: {text}</div>
+);
+
+Text.propTypes = {
+  text: PropTypes.string,
+  className: PropTypes.any,
+};
+
+export default Text;
+```
+
+Now to style this one we need to use the styled function in a little different way. Instead of typing styled\`\` we need to call it like a function with the component as a parameter like so:
+
+    const DecoratedText = styled(Text)`
+    // define styles
+    `;
+
+    <DecoratedText text={"I am now decorated"} />
+
+In the component we need to take the className as a parameter in the props and assign that to our top level div, like so:
+
+```
+// Text.js
+import React from 'react';
+import PropTypes from 'prop-types';
+
+const Text = ({ text, className }) => (
+  <div className={className}> Here is text: {text}</div>
+);
+
+Text.propTypes = {
+  text: PropTypes.string,
+  className: PropTypes.any,
+};
+
+export default Text;
+
+```
+
+As you can see above calling the styled\(\) function means that it under the hood produces a className that it injects into our component that we need to set to our top level element, for it to take effect. 
 
