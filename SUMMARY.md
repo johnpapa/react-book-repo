@@ -18,8 +18,8 @@
 * [Conditional rendering](conditional-rendering.md)
 * [Dealing with input elements](dealing-with-input-elements.md)
 * [Forms](forms.md)
-* Wrapper Components
-* AJAX /HTTP
+* [Wrapper Components](wrapper-components.md)
+* [AJAX /HTTP](ajax-http.md)
 
 ## STYLING
 
@@ -31,8 +31,8 @@
 
 ## ROUTING
 
-* Core concepts
-* Set up
+* [Core concepts](routing/core-concepts.md)
+* [Set up](routing/set-up.md)
 * [Dealing with router and query params](routing/dealing-with-router-and-query-params.md)
 * [Dealing with lazy loading/ code splitting](routing/dealing-with-lazy-loading-code-splitting.md)
 
