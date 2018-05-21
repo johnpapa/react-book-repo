@@ -183,3 +183,13 @@ export default Text;
 
 As you can see above calling the styled\(\) function means that it under the hood produces a className that it injects into our component that we need to set to our top level element, for it to take effect.
 
+## Inheritance
+
+We can easily take an existing  style and add to it by using the method extend, like so:
+
+    const GiantButton = Button.extend`
+      font-size: 48px;
+    `;
+
+
+
