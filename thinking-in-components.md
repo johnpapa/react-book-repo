@@ -80,9 +80,9 @@ At this point we are able to render our todo list but we are not able to change 
 
     export default App;
 
-Above we have created a fully working component but we are yet to add support for changing our todos. Let's do that next. We need to do the following:
+Above we have created a fully working component but we are yet to add support for changing our `todos`. Let's do that next. We need to do the following:
 
-* listen to an onChange event when we check our checkbox
+* listen to an `onChange` event when we check our checkbox
 * change the item in our todo list to reflect the change we just made
 
 Listen to onChange is quite simple, we just need to add a method that listens to it like so:
@@ -162,7 +162,7 @@ Let's now add the final code:
 
     export default App;
 
-Let's zoom in on the handleChecked method here to realise what we have done:
+Let's zoom in on the `handleChecked()` method here to realise what we have done:
 
 ```
 handleChecked = (todo) => {
@@ -179,7 +179,7 @@ handleChecked = (todo) => {
 }
 ```
 
-we go through the list, todo by todo until we find the selected todo then we change it state by doing an object spread:
+we go through the list, todo by todo until we find the selected `todo` then we change it state by doing an object spread:
 
 ```
 return { ...t, done: !t.done }
@@ -191,11 +191,11 @@ Another thing worth noting is that our todo now consist of three properties:
 * done
 * id
 
-We needed the id property to identify which todo we were trying to modify.
+We needed the `id` property to identify which todo we were trying to modify.
 
 ## Create a todos component
 
-So far we have everything inside of the App component and we don't want our entire application to live in there. What if we want to add other stuff. First thing we are going to do is to create a Todos component and thereby move the rendering, state and methods into that component. We will end up with the following files:
+So far we have everything inside of the App component and we don't want our entire application to live in there. What if we want to add other stuff. First thing we are going to do is to create a `Todos` component and thereby move the rendering, state and methods into that component. We will end up with the following files:
 
 * App.js - we had this from the beginning
 * Todos.js - this is new
@@ -289,7 +289,7 @@ export default App;
 
 ## Breaking down the todos component
 
-So far Todos.js is one massive component. We can break it down according to responsibility. I mean it works to have it like it is but it's usually better to break down your app into small focused components, to make maintenance easier, but also make it easier to use certain components in other places. So what can we break down Todos.js into? Well we can at least break it down into:
+So far Todos.js is one massive component. We can break it down according to responsibility. I mean it works to have it like it is but it's usually better to break down your app into small focused components, to make maintenance easier. Another reason is making it easier to use certain components in other places. So what can we break down Todos.js into? Well we can at least break it down into:
 
 * Todos, this would render a list of Todo components and handle all the events
 * Todo, this would only be responsible for rendering a Todo and send any change action upwards
@@ -326,7 +326,7 @@ Let's make the necessary changes:
 
     export default Todo;
 
-Above we have broken out the Todo rendering into its own component. As you can see the component is not defined as a class inheriting from React.Component but is simply just a function. This is called a presentation or dumb component. What makes it dumb is that it knows nothing about the context it is in only that it relies on input, todo and invokes any action that it is being provided through its props, namely handleChecked\(\). Our Todos file now looks a bit simpler like so:
+Above we have broken out the `Todo` rendering into its own component. As you can see the component is not defined as a class inheriting from React.Component but is simply just a function. This is called a presentation or dumb component. What makes it dumb is that it knows nothing about the context it is in only that it relies on input, `todo` and invokes any action that it is being provided through its props, namely `handleChecked()`. Our Todos file now looks a bit simpler like so:
 
     // Todos.js
 
@@ -388,11 +388,9 @@ Let's zoom in on the interesting part:
 <Todo todo={todo} key={todo.id} handleChecked={this.handleChecked} />
 ```
 
-Above we simple let the Todo component handle all the rendering and we simply provide it with the data todo and the method handleChecked\(\). Ok so we mentioned presentational components so far so what is the other kind of component the container component. A container component is simply a component where data and logic lives. It 'contains' the meat of the application. In  our app the Todos component is a container component and the Todo is a presentational component. If you are building your app in the right way you will end up with a majority of presentational components and a few container components.
+Above we simply let the Todo component handle all the rendering and we provide it with the data `todo` and the method `handleChecked()`. Ok so we mentioned presentational components so far so what is the other kind of component the container component. A container component is a component where data and logic lives. It 'contains' the meat of the application. In  our app the Todos component is a container component and the Todo is a presentational component. If you are building your app in the right way you will end up with a majority of presentational components and a few container components.
 
 ## Summary
 
-We set out to create a working Todo app. We did so. We also set out to break down the mentioned app into many small components where each component was more focused on its task making future changes or reuse a lot easier. We introduced the term Dumb/Presentation component and Container component and explained what those were. to show that it only relied on inputs. 
-
-
+We set out to create a working Todo app. We did so. We also set out to break down the mentioned app into many small components where each component was more focused on its task making future changes or reuse a lot easier. We introduced the term Dumb/Presentation component and Container component and explained what those were. to show that it only relied on inputs.
 
