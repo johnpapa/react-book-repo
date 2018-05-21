@@ -236,5 +236,16 @@ Above we have chained styled\(\) and attrs\(\) and we end with a double \` tick.
       border-radius: ${props => (props.round ? '50%' : '7px')}
     `;
 
+## Theming
+
+Styled components exports a ThemeProvider that allows us to easily theme our styled components. To make it work we need to do the following:
+
+* import the ThemeProvider
+* set it as root Element of the App
+* define a theme
+* refer to a property in theme and set that to desired CSS property
+
+
+
 
 
