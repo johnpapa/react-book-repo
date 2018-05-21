@@ -154,7 +154,7 @@ Text.propTypes = {
 export default Text;
 ```
 
-Now to style this one we need to use the styled function in a little different way. Instead of typing styled\`\` we need to call it like a function with the component as a parameter like so:
+Now to style this one we need to use the styled function in a little different way. Instead of typing "styled\`\`" we need to call it like a function with the component as a parameter like so:
 
     const DecoratedText = styled(Text)`
     // define styles
@@ -179,8 +179,7 @@ Text.propTypes = {
 };
 
 export default Text;
-
 ```
 
-As you can see above calling the styled\(\) function means that it under the hood produces a className that it injects into our component that we need to set to our top level element, for it to take effect. 
+As you can see above calling the styled\(\) function means that it under the hood produces a className that it injects into our component that we need to set to our top level element, for it to take effect.
 
