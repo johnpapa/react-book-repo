@@ -1,5 +1,10 @@
 # Thinking in components - building a todo app
 
+In this chapter we will learn:
+
+* How to break down an app into smaller components
+* Introduce the concepts: presentation/dumb component and container component
+
 Thinking in components is about being able to break down an application in components. Consider something as simple as a Todo application. It will most likely consist of a number of components. Let's try and break that down.
 
 ## A list of todos
@@ -291,7 +296,36 @@ So far Todos.js is one massive component. We can break it down according to resp
 
 Let's make the necessary changes:
 
- 
+    // Todo.js
+
+    import React from 'react';
+    import styled from 'styled-components';
+    import PropTypes from 'prop-types';
+
+    const TodoContainer = styled.div`
+      box-shadow: 0 0 5px gray;
+      padding: 30px;
+      margin-bottom: 10px;
+    `;
+
+    const Todo = ({ todo, handleChecked }) => (
+      <TodoContainer key={todo.id}>
+        <input type="checkbox" onChange={() => handleChecked(todo)} checked={todo.done} />
+        {todo.title}
+      </TodoContainer>
+    );
+
+    Todo.propTypes = {
+      todo: PropTypes.shape({
+        title: PropTypes.string,
+        done: PropTypes.bool,
+        id: PropTypes.number,
+      }),
+      handleChecked: PropTypes.func,
+    };
+
+    export default Todo;
+
 
 
 
