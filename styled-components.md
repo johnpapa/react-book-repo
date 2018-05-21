@@ -83,5 +83,11 @@ Let's zoom in on the needed addition:
       color: white;
     `}
 
-by using `${props}` we are able to write code that checks the attributes of the element, `props` wether they contain the property `primary`. Thereafter we use `&& css` to specify what additional CSS we should be adding if the condition is met. 
+by using `${props}` we are able to write code that checks the attributes of the element, `props` wether they contain the property `primary`. Thereafter we use `&& css` to specify what additional CSS we should be adding if the condition is met. A note here is that we need to import the `css` function from styled components like so:
+
+```
+import styled, { css } from 'styled-components';
+```
+
+
 
