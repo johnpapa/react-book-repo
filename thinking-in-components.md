@@ -326,6 +326,68 @@ Let's make the necessary changes:
 
     export default Todo;
 
+Above we have broken out the Todo rendering into its own component. As you can see the component is not defined as a class inheriting from React.Component but is simply just a function. This is called a presentation or dumb component. What makes it dumb is that it knows nothing about the context it is in only that it relies on input, todo and invokes any action that it is being provided through its props, namely handleChecked\(\). Our Todos file now looks a bit simpler like so:
+
+    // Todos.js
+
+    import React, { Component } from 'react';
+    import styled from 'styled-components';
+    import PropTypes from 'prop-types';
+
+    import Todo from './Todo';
+
+    const TodosContainer = styled.div`
+      padding: 30px;
+    `;
+
+    class Todos extends Component {
+      static propTypes = {
+        todos: PropTypes.array.isRequired,
+      }
+
+      state = {
+        todos: this.props.todos,
+      };
+
+      handleChecked = (todo) => {
+        const newTodos = this.state.todos.map(t => {
+          if (t.id === todo.id) {
+            return { ...t, done: !t.done };
+          }
+          return t;
+        });
+
+        this.setState({
+          todos: newTodos,
+        });
+      }
+
+      render() {
+        return (
+          <TodosContainer>
+            <h2>Todos</h2>
+            {this.state.todos.map(todo => (
+              <Todo todo={todo} key={todo.id} handleChecked={this.handleChecked} />
+              ))}
+          </TodosContainer>
+        );
+      }
+    }
+
+    export default Todos;
 
 
+We now import the Todo component, like so:
+
+```
+import Todo from './Todo';
+```
+
+Let's zoom in on the interesting part:
+
+```
+<Todo todo={todo} key={todo.id} handleChecked={this.handleChecked} />
+```
+
+Above we simple let the Todo component handle all the rendering and we simply provide it with the data todo and the method handleChecked\(\).
 
