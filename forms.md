@@ -167,4 +167,18 @@ What about check boxes? Well for checkboxes you can select several different one
 </div>
 ```
 
+As mentioned we need to look at the property `checked`, this means we need to alter the method `handleChange()` slightly, to this:
+
+```js
+handleChange = (ev) => {
+  const value = ev.target.type === 'checkbox' ? ev.target.checked : ev.target.value;
+
+  this.setState({
+    [ev.target.name]: value,
+  });
+}
+```
+
+From the above code we see that we inspect to see wether `target.type` is of type `checkbox`, if so we look at the `checked` property to find our value.
+
 ### Select list
