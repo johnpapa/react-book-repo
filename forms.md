@@ -41,4 +41,49 @@ class App extends Component {
 ```
  
 ###Single source of truth 
-The form itself maintains the state of all its input fields but you tend to want to control that and make React the single source of truth
+The form itself maintains the state of all its input fields but you tend to want to control that and make React the single source of truth. We can do that by putting each element value in the state, like so:
+
+```js
+class App extends Component {
+  state = {
+    firstname: void 0,
+  }
+
+  onSubmit = (ev) => {
+    console.log('form', ev.target);
+    return false;
+  }
+
+  handleChange = (ev) => {
+    this.setState({
+      firstname: ev.target.value,
+    });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <form onSubmit={this.onSubmit}>
+          <div>
+            <label>First name</label>
+            <input name="firstname" id="firstname" value={this.state.firstname} onChange={this.handleChange} />
+            {this.state.firstname}
+          </div>
+          <div>
+            <button>Save</button>
+          </div>
+        </form>
+      </div>
+    );
+  }
+}
+```
+Above we are creating the method `handleChange()` that reacts every time the `change` event is triggered. We can see that we subscribe to `change` event when we connect the `handleChange()` method to the `onChange`, like so:
+
+```js
+<input name="firstname" 
+       id="firstname" 
+       value={this.state.firstname} 
+       onChange={this.handleChange} 
+/>
+```
