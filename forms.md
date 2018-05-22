@@ -182,3 +182,16 @@ handleChange = (ev) => {
 From the above code we see that we inspect to see wether `target.type` is of type `checkbox`, if so we look at the `checked` property to find our value.
 
 ### Select list
+Select lists are quite easy, we can construct those using a `select` tag and many `option` tags, like so:
+
+```
+{this.state.products.length > 0 &&
+<select name="product" onChange={this.handleChange}>
+  {this.state.products.map(p => (
+    <option selected={this.state.product === p} value={p}>{p}</option>
+  ))}
+  </select>
+}
+```
+
+Above we simply repeat out a list of products and set the `value` property and the inner HTML of the `option` element. We also set the `selected` property if our `this.state.product` corresponds to the rendered out element.
