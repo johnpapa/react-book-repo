@@ -14,7 +14,6 @@
 * [Thinking in Components](thinking-in-components.md)
 * [Conditional rendering](conditional-rendering.md)
 * [Life cycle](life-cycle.md)
-* [Conditional rendering](conditional-rendering.md)
 * [Dealing with input elements](dealing-with-input-elements.md)
 * [Forms](forms.md)
 * [Wrapper Components](wrapper-components.md)
