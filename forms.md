@@ -132,3 +132,25 @@ class App extends Component {
   }
 }
 ```
+Let's zoom in on the interesting part:
+
+```js
+handleChange = (ev) => {
+  this.setState({
+    [ev.target.name]: ev.target.value,
+  });
+}
+```
+We replaced setting a specific key by name, `firstname` in this case, to a more generic variant `[ev.target.name]`. This will enable us to hook up the `handleChange()` method to any input of the same type.
+
+### Radio buttons and check boxes
+Radio button usually have the behaviour that we want one radio button out of many selected. To accomplish that we ensure all radio buttons that belong together have the same name. We therefore create a markup looking like this:
+
+```js
+          <div>
+            Man <input type="radio" name="weather" value="sunshine" onChange={this.handleChange} />
+            Woman <input type="radio" name="weather" value="rain" onChange={this.handleChange} />
+          </div>
+```
+
+### Select list
