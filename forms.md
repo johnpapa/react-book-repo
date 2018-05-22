@@ -87,3 +87,48 @@ Above we are creating the method `handleChange()` that reacts every time the `ch
        onChange={this.handleChange} 
 />
 ```
+
+### Adding more input elements
+So far we have seen how we can add an input element and hook up a method to `onChange` and stick the value of the element into the state object. Does this means we will have 20 different methods if we have 20 different inputs? No, we can solve this in an elegant way:
+
+```js
+class App extends Component {
+  state = {
+    firstname: void 0,
+    lastname: void 0,
+  }
+
+  onSubmit = (ev) => {
+    console.log('form', ev.target);
+    return false;
+  }
+
+  handleChange = (ev) => {
+    this.setState({
+      [ev.target.name]: ev.target.value,
+    });
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <form onSubmit={this.onSubmit}>
+          <div>
+            <label>First name</label>
+            <input name="firstname" id="firstname" value={this.state.firstname} onChange={this.handleChange} />
+            {this.state.firstname}
+          </div>
+          <div>
+            <label>Last name</label>
+            <input name="lastname" id="lastname" value={this.state.lastname} onChange={this.handleChange} />
+            {this.state.lastname}
+          </div>
+          <div>
+            <button>Save</button>
+          </div>
+        </form>
+      </div>
+    );
+  }
+}
+```
