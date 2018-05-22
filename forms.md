@@ -147,10 +147,24 @@ We replaced setting a specific key by name, `firstname` in this case, to a more 
 Radio button usually have the behaviour that we want one radio button out of many selected. To accomplish that we ensure all radio buttons that belong together have the same name. We therefore create a markup looking like this:
 
 ```js
-          <div>
-            Man <input type="radio" name="weather" value="sunshine" onChange={this.handleChange} />
-            Woman <input type="radio" name="weather" value="rain" onChange={this.handleChange} />
-          </div>
+  <div>
+    Man <input type="radio" name="weather" value="sunshine" onChange={this.handleChange} />
+    Woman <input type="radio" name="weather" value="rain" onChange={this.handleChange} />
+  </div>
+```
+As we can see above we can easily attach the `handleChanged()` method to the `onChange`.
+
+What about check boxes? Well for checkboxes you can select several different ones, if you check a checkbox then a checkbox of the same group shouldn't be deselected, unlike a radio button. Checkboxes are a little bit different in nature as they require us to look at the property `checked` instead of value. Let's have a look at their markup:
+```js
+<div>
+    Yellow <input type="checkbox" name="yellow" id="yellow" value={this.state.yellow} onChange={this.handleChange} />
+</div>
+<div>
+    Blue <input type="checkbox" name="blue" id="blue" value={this.state.yellow} onChange={this.handleChange} />
+</div>
+<div>
+    Red <input type="checkbox" name="red" id="red" value={this.state.yellow} onChange={this.handleChange} />
+</div>
 ```
 
 ### Select list
