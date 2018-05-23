@@ -74,6 +74,38 @@ class AnyComponent extends React.Component {
 This will enable us to add further logic that let's us alter the theme anytime we want, like so:
 
 ```js
+class AnyComponent extends React.Component {
+  state = {
+    theme: 'dark',
+    themes: ['light', 'dark']
+  };
+  
+  handleSelect = (evt) => {
+    this.setState({
+      theme: evt.target.value
+    });
+  };
+
+  render() {
+    return (
+        <select value={this.state.theme} onChange=              {this.handleChangedTheme} >
+          {this.state.themes.map(t => <option value={t}>{t}</option>)}
+        </select>
+        <div>
+          Selected theme: {this.state.theme}
+        </div>
+      <ThemeContext.Provider value={this.state.theme}>
+        <select>
+        {this.themes.map(t => 
+          <option onChange={this.handleSelect} value={t}>{t}</option>
+        )}
+        </select>
+        <ThemedButton />
+      </ThemeContext.Provider>
+    );
+  }
+}
+
 ```
 
 ## Updating context from a component
