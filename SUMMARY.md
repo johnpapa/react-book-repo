@@ -39,7 +39,6 @@
 
 * [Component Patterns](advanced/component-patterns.md)
 * [DataContext API](advanced/datacontext-api.md)
-* [Wrapping form elements](advanced/wrapping-form-elements.md)
 * [Decorators](advanced/decorators.md)
 
 ## TESTING
