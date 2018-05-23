@@ -24,7 +24,7 @@ You need to do two things to be able to use it:
 
 The above context declares a provider by typing:
 
-```
+```js
 <ThemeContext.Provider value='dark' >
   <ThemeContext.Consumer>
   {theme => <div>{theme}<div>} // outputs 'dark'
@@ -32,10 +32,50 @@ The above context declares a provider by typing:
 </ThemeContext>
 ```
 
+Most likely the `ThemeContext.Consumer` is part of another component, like so:
 
-### Provider
-### Consumer
+```js
+const ThemedButton = (props) => (
+  <ThemeContext.Consumer>
+  {theme => <button { ...props }>button with them: {theme}<button>} // outputs 'dark'
+  </ThemeContextConsumer>
+);
+
+``` 
+This leads to us being able to adjust our first code to:
+
+```js
+<ThemeContext.Provider value='dark' >
+  <ThemedButton />
+</ThemeContext>
+
+```
+As you can see the value from the provider is being passed down through the props and we can inside of the `ThemedButton` component access the `theme` property through the `Consumer`.
+
 ## Dynamic context
+What if we want to change the provider value? One way of doing that is by having a dynamic context. We can achieve that by placing our Provider inside of a component and let its value depend on the state like so:
+
+```js
+class AnyComponent extends React.Component {
+  state = {
+    theme: 'dark'
+  };
+
+  render() {
+    return (
+      <ThemeContext.Provider value={this.state.theme}>
+        <ThemedButton />
+      </ThemeContext.Provider>
+    );
+  }
+}
+```
+
+This will enable us to add further logic that let's us alter the theme anytime we want, like so:
+
+```js
+```
+
 ## Updating context from a component
 ## Higher order component
 
