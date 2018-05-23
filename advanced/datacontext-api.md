@@ -88,7 +88,9 @@ class AnyComponent extends React.Component {
 
   render() {
     return (
-        <select value={this.state.theme} onChange=              {this.handleChangedTheme} >
+        <select 
+          value={this.state.theme} 
+          onChange={this.handleChangedTheme} >
           {this.state.themes.map(t => <option value={t}>{t}</option>)}
         </select>
         <div>
@@ -109,5 +111,6 @@ class AnyComponent extends React.Component {
 ```
 
 ## Updating context from a component
+
 ## Higher order component
 
