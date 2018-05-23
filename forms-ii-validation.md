@@ -320,4 +320,19 @@ Let's zoom in on the interesting bit:
 ```
 <button disabled={!this.state.isValid}>Submit</button>
 ```
+We read from our `isValid` property and we are to disable our button when we want.
+
+The other version of stopping the submit from going through involves us adding some logic to the method `handleSubmit()`:
+
+```
+handleSubmit = (ev) => {
+  ev.preventDefault();
+  
+  if (!this.state.isValid) {
+    console.log('form is NOT valid');
+  } else {
+    console.log('valid form')
+  }
+}  
+```
 
