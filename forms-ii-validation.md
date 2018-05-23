@@ -87,7 +87,9 @@ So who is calling this function? Well the handleChange() method is, like so:
 
 ```
 handleChange = (ev) => {
-  const error = validate(ev.target.value, this.props.errMessage);
+  const { errMessage } = this.props;
+
+  const error = validate(ev.target.value, errMessage);
   this.setState({
     data: ev.target.value,
     error,
