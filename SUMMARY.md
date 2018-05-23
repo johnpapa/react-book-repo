@@ -16,6 +16,7 @@
 * [Life cycle](life-cycle.md)
 * [Dealing with input elements](dealing-with-input-elements.md)
 * [Forms](forms.md)
+* [Forms II - validation](forms-ii-validation.md)
 * [Wrapper Components](wrapper-components.md)
 * [AJAX /HTTP](ajax-http.md)
 
