@@ -169,4 +169,155 @@ export default Input;
 ```
 
 ### Telling the form
+Usually when you put input elements in a form you want to be able to tell the form that one or more invalid inputs exist and you want the stop the form from being submitted. To do so we need send a message to our form every time a value changes and if there is a validation error, the form will know. To accomplish that we need to do the following:
+
+- add a `notify` input property, this will be a function we can call as soon as we validated the latest change
+- call the `notify` function 
+
+We there update our `handleChange()` method to now make a call to the `notify()` function that we pass in, like so: 
+
+ ```
+ handleChange = (ev) => {
+  const { errMessage, name, notify } = this.props;
+
+  const error = validate(ev.target.value, errMessage);
+  notify(name, error === '');
+  this.setState({
+    data: ev.target.value,
+    error,
+  });
+}
+ ``` 
+ `notify()` is called with two params, `name` and wether it is valid.
+ 
+ #### Setting up the form
+ Ok great, we have a way to communicate errors back to the form, what about the form itself, what does it need to do for this to work? It needs the following:
+ 
+- a method that it can hook up the notify property
+- determine what to do if one or more elements are invalid, like for example disable the submit button
+
+We decide on creating a dedicated component for our form as well:
+
+```
+import React from 'react';
+import styled from 'styled-components';
+import Input from './Input';
+
+const FormContainer = styled.form`
+  border: solid 2px;
+  padding: 20px;
+`;
+
+class Form extends React.Component {
+  state = {
+    isValid: true,
+  }
+
+  notify = (name, isValid) => {
+    
+  }
+
+  render() {
+    return (
+      <FormContainer>
+        <div>
+          <Input 
+            errMessage="Must contain 2-3 digits" 
+            desc="2-3 characters" 
+            name="first-name" 
+            notify={this.notify} 
+            title="I am a custom inbox" />
+        </div>
+        <button>Submit</button>
+      </FormContainer>
+    );
+  }
+}
+
+export default Form;
+
+```  
+At this point we have hooked up our notify `input` property to a method on our component called `notify()`, like so:
+
+```
+<Input
+  errMessage="Must contain 2-3 digits" 
+  desc="2-3 characters"
+  name="first-name"
+  notify={this.notify}
+  title="I am a custom inbox" 
+/>
+``` 
+As you can see our `notify()` method doesn't do much yet, but it will:
+
+```
+notify = (name, isValid) => {
+}
+
+```
+
+So what do we need to accomplish with a call to notify() ? The first thing we need to accomplish is telling the form that one of your inputs is invalid. The other is to set the whole form as invalid. Based on that we define our `notify()` code as the following:
+
+```
+notify = (name, isValid) => {
+  this.setState({
+    [name]: isValid,
+  }, () => {
+    this.setState({
+      isValid: this.validForm(),
+    });
+  });
+}
+```
+We see above that we after having updated our state for our input element we set the state for `isValid` and call the method `validForm()` to determine its value. The reason for setting the `isValid` state like this is that setState() doesn't happen straight away so it is only in the callback that we can guarantee that it's state has been updated.
+
+`isValid` is the property we will use in the markup to determine wether our form is valid. Let's define the method `validForm()` next:
+
+```
+validForm = () => {
+  const keys = Object.keys(this.state);
+  for (let i = 0; i < keys.length; i++) {
+    if (keys[i] === 'isValid') { continue; }
+
+    if (!this.state[keys[i]]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+```
+Above we are looping through our state and is looking for wether one of the input elements are invalid. We skip `isValid` as that is not an element state.
+
+#### Determine form state
+We have now set everything up to make it easy to indicate wether the form can be submitted or not. We can handle that in two ways:
+
+- disabling the submit button
+- let the user press the submit button but stop the submit from going through 
+
+If we do the first variant we only need to change the markup to the following:
+
+```
+render() {
+  return (
+    <FormContainer onSubmit={this.handleSubmit}>
+      <div>
+        <Input
+          errMessage="Must contain 2-3 digits"
+          desc="2-3 characters"
+          name="first-name"
+          notify={this.notify}
+          title="I am a custom inbox"
+        />
+      </div>
+      <button disabled={!this.state.isValid}>Submit</button>
+    </FormContainer>
+  );
+}
+```
+Let's zoom in on the interesting bit:
+
+```
+<button disabled={!this.state.isValid}>Submit</button>
+```
 
