@@ -43,6 +43,7 @@ Now we will see that it pays off to wrap our `input` element in a component. Add
 - add a function that validates the input value
 - validate on every value change, we need to add a callback to `onChange`
 
+#### Render the error
 Let alter the `render()` method to the below:
 
 ```
@@ -68,7 +69,10 @@ Here we are conditionally displaying the error message, assuming its on the stat
   <ErrorMessage>{this.state.error}</ErrorMessage>
 }
 ```
-We are also hooking up a `handleChange()` method to `onChange`. Next step is adding our validation function:
+We are also hooking up a `handleChange()` method to `onChange`. 
+
+#### Adding validation function
+Next step is adding our validation function:
 
 ```
 const validate = (val, errMessage) => {
@@ -76,7 +80,10 @@ const validate = (val, errMessage) => {
   return valid ? '' : errMessage;
 };
 ``` 
-Our function above simply tests wether our input value matches a RegEx pattern and if so its valid, if not then we return the error message. So who is calling this function? Well the handleChange() method is, like so:
+Our function above simply tests wether our input value matches a RegEx pattern and if so its valid, if not then we return the error message.
+
+#### Managing the state
+So who is calling this function? Well the handleChange() method is, like so:
 
 ```
 handleChange = (ev) => {
