@@ -111,6 +111,61 @@ class AnyComponent extends React.Component {
 ```
 
 ## Updating context from a component
+Let's say you want a component to be able to update the context. This is not a component containing the provider but rather a component that is a consumer. How would we do that? Well we can actually expose a method that changes the context. Take the following code:
+
+```js
+const ThemeContext = React.createContext('light');
+```
+
+Let's change this to be an object instead:
+
+```js
+const ThemeContext = React.createContext({
+  cart: void 0
+});
+```
+
+Ok, so now that we have an object, let's add a method to it:
+
+```
+const ThemeContext = React.createContext({
+  cart: void 0,
+  addItem: () => {}
+});
+```
+
+Ok, so we now have the `addItem()` method, but there is no implementation? Yes, thats correct, this is more of a prototype of what it can do. The real implementation lies in the component that contains the provider. Let's create such a component: 
+
+```
+
+const CartPage = () => (
+  <CartContext.Consumer>
+  {({cart, addItem}) => cart.map(item => <div>{item}</div>)}
+  </CartContext.Consumer>
+);
+
+class CartProvider extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      cart: [],
+      addItem: (item) => {
+        this.state.cart = [ ...this.state.cart, { ...item }]
+      }
+    }
+  }
+  
+  render() {
+    return (
+      <CartContext.Provider value={this.state}>
+        <CartPage />
+      </CartContext.Provider>
+    );
+  }
+}
+```
+
+
 
 ## Higher order component
 
