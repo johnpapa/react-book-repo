@@ -1,7 +1,7 @@
 # Inline styling
 React has a different take on styling. You can definitly set a style tag with content. However, what you set to it needs to be an object with properties in it and the properties needs to have pascal casing. Let's show how this can look:
 
-```
+```js
 import image from './image.jpg';
 
 const styles = {
