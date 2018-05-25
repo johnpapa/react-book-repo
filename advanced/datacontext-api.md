@@ -165,7 +165,37 @@ class CartProvider extends React.Component {
 }
 ```
 
-
-
 ## Higher order component
+Sometimes a context needs to be provided in many places. In our example above imagine the `cart` being used inside of a header that wants to show how many items you have in a `cart`. There might also be dedicated cart page where you can see the `cart` content more in detail. It might get tedious to have to wrap all those component content in a Consumer tag. For those situations it's better to use a HOC, higher order component. This means we can create a function where we use our component as input and we transfer the context into it. It can look like the following:
+
+```
+export const withCart = (Component) => {
+  return function fn(props) {
+    return (
+      <CartContext.Consumer>
+        {(context) => <Component {...props} {...context} /> }
+      </CartContext.Consumer>
+    );
+  };
+};
+```
+As you can see above, we are using a Consumer to make this happen but we also use the spread parameter `{...context}` to transfer what is in the context object to the underlying component. Now we can easily use this function to decorate our component, like so:
+
+```
+class Header extends React.Component {
+  render() {
+    const { cart } = this.props;
+    return (
+      {cart.length === ? 
+      <div>Empty cart</div> :
+      <div>Items in cart: ({cart.length})</div>
+      }
+            
+    );
+  }
+}
+
+const HeaderWithCart = withCart(Header);
+```
+
 
