@@ -28,6 +28,8 @@
 
 ## IMAGES
 
+* [Adding images](images/adding-images.md)
+
 ## ROUTING
 
 * [Core concepts](routing/core-concepts.md)
