@@ -92,6 +92,11 @@ class App extends Component {
 export default App;
 ```
 
-We have already defined what the `Main` component looks like above in Main.js. What about `Head` component? Well this is typically where we define a menu the user can interact with.
+We have already defined what the `Main` component looks like above in Main.js. What about `Head` component? Well this is typically where we define a menu the user can interact with. This is where we introduce the `Link` component. This will help us create links that our router knows how to respond to. Ultimately it will generate anchor, `a`-tags.
+
+```js
+import { Link } from 'react-router-dom'
+
+```
 
 
