@@ -123,8 +123,3 @@ export default Head;
 
 ```
 
-## Router params
-
-## Query params
-
-
