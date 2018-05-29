@@ -70,7 +70,7 @@ class Products extends React.Component {
     products: []
   };
   
-  componentDidMount() {
+  async componentDidMount() {
     const { location: { search } } = this.props;
     const { page, pageSize } = search;
   
