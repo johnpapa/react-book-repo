@@ -6,7 +6,11 @@ If you are new to React spend some time in the basic section before moving on. I
 
 The official documentation can be found at, [https://reactjs.org/](https://reactjs.org/)
 
-Happy reading
+Questions or comments, you can reach me on twitter:
+@chris_Noring
 
+
+
+Happy reading
 Chris
 
