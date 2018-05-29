@@ -4,6 +4,7 @@
 
 - BrowserRouter
 - HashRouter
+- Router
 
 
 ## Install and set up
