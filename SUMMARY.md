@@ -33,6 +33,7 @@
 
 * [Core concepts](routing/core-concepts.md)
 * [Dealing with router and query params](routing/dealing-with-router-and-query-params.md)
+* Programmatic navigation
 * [Dealing with lazy loading/ code splitting](routing/dealing-with-lazy-loading-code-splitting.md)
 
 ## ADVANCED
