@@ -71,6 +71,9 @@ class Products extends React.Component {
   };
   
   componentDidMount() {
+    const { location: { search } } = this.props;
+    const { page, pageSize } = search;
+  
     const products = await api.getProducts(`/products?page=${page}&pageSize=${pageSize}`);
     this.setState({
       products,
@@ -83,5 +86,12 @@ class Products extends React.Component {
     </React.Fragment>
   }
 }
+```
+As you can see above we are able to access our query parameters through a `location` object that sits on a `search` object that represents our parameters like so:
 
+```js
+{
+  page: 1
+  pageSize: 20
+}
 ```
