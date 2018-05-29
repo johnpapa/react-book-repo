@@ -6,6 +6,8 @@ A router parameter is part of your url and can look like the following:
 /products/111
 /users/1/products
 ```
+
+## Router params
 In the first case we query against a resource /products and is looking for a particular item `111`.
 
 In the second case we are looking at the resource `users` and the specific user with `id` having value `1`.
@@ -39,7 +41,5 @@ class ProductDetail extends React.Component {
   }
 }
 ```  
-
-## Router params
 
 ## Query params
