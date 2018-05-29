@@ -42,4 +42,20 @@ class ProductDetail extends React.Component {
 }
 ```  
 
+The interesting part here being how we access the router parameter:
+
+```js
+this.props.match.params.id
+```
+
+There is a match object that contains a `params` object that points to our router parameter `id`.
+
+Let's quickly remind ourself how this router was set up:
+
+```
+<Route path='/products/:id' component={ProductDetail}/>
+```
+
+Above you can see that we define the route `/products/:id`, and thereby we set the wildcard to `:id`, which makes it possible for us to access it in code by typing `this.props.match.params.id`.
+
 ## Query params
