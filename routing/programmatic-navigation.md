@@ -28,3 +28,25 @@ class TestComponent extends React.Component {
 
 export default withRouter(TestComponent);
 ```
+
+## Using redirect component
+Using `Redirect` component is a different approach but just as valid. The idea is to have it look at a state in the component and if that condition is fulfilled then navigate. Here is how it could look like in code:
+
+```js
+import { Redirect } from 'react-router';
+
+// this could be from a React context or a Redux store
+import { loggedIn } from './login';
+
+const User = () => (
+  <div>username ... </div>
+);
+
+class UserDetail extends React.Component {
+  render() {
+    <React.Fragment>
+    {isLoggedIn() ? <User /> : <Redirect to='/login' /> }
+    </React.Fragment>
+  }
+}
+```
