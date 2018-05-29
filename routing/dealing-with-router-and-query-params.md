@@ -59,3 +59,4 @@ Let's quickly remind ourself how this router was set up:
 Above you can see that we define the route `/products/:id`, and thereby we set the wildcard to `:id`, which makes it possible for us to access it in code by typing `this.props.match.params.id`.
 
 ## Query params
+Let's talk about query parameters next. A query parameter is used to filter down a resource. A typical example is using parameters like `pageSize` or `page` to indicate to the backend that you only want a small slice of content and not the full list which can be millions of rows potentially. Query parameters are found after the `?` character in the url which would make the url look like this `/products?page=1&pageSize=20`. 
