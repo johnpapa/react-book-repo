@@ -31,3 +31,91 @@ const Main = () => (
 
 export default Main;
 ```
+
+We can use the `import` function to help us import a component when we need it and thereby accomplishing a lazy load behaviour, like so:
+
+```
+import('./Home')
+```
+
+Here is the thing though. This returns a `Promise`. Not only thst, it's not a valid React child so we need to stick it into a component. For that reason we write a component whose job it is to retrieve the result and ensure we render out our fetched component, like so:
+
+```js
+class Async extends React.Component {
+  state = {
+    Component: void 0
+  };
+
+  async componentDidMount() {
+    const res = await this.props.provider();
+    this.setState({ Component: res.default });
+  }
+
+  render() {
+    const { Component } = this.state;
+    return(
+      <React.Fragment>
+        {Component ? <Component /> : <div>Loading...</div>}
+        </React.Fragment>
+    )
+  }
+}
+```
+Now we can set up a route like so:
+
+```html
+<Route path='/products' exact={true} component={() => <Async provider={() => import('./Products/Products')} />} />
+```
+
+However this doesn't look quite nice though, we are accessing the `default` property of our import and `/Products/Products` as route could look better. It would be nicer if we could define our import url as `/Products` and be able to avoid accessing the default import. We do need to alter the component directory a bit from:
+
+```
+/Products
+  Products.js
+```
+to 
+
+```
+/Products
+  Products.js
+  index.js
+```
+In our newly created `index.js` we can import our component and export it, like so:
+
+```js
+// Products/index.js
+
+import Products from './Products';
+export const Component = Products;
+```
+
+Let's head back to Main.js and change the `Async` component to this:
+
+```js
+class Async extends React.Component {
+  state = {
+    Component: void 0
+  };
+
+  async componentDidMount() {
+    const { Component } = await this.props.provider();
+    this.setState({ Component });
+  }
+
+  render() {
+    const { Component } = this.state;
+    return(
+      <React.Fragment>
+        {Component ? <Component /> : <div>Loading...</div>}
+        </React.Fragment>
+    )
+  }
+}
+```
+The big difference here is getting our component like this `const { Component } = await this.props.provider()`. Now let's update how we set up the route to this:
+
+```html
+<Route path='/products' exact={true} component={() => <Async provider={() => import('./Products')} />} />
+```
+
+`/Products/Products` has been replaced with `/Products`, much better.
