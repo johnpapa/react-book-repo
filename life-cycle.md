@@ -1,13 +1,5 @@
 # Life cycle
 
-## componentWillMount
-
-no component. You can't do anything involving DOM.
-
-you should probably not use this one.cant call setState
-
-use case: app configuration in root component
-
 ## componentDidMount
 
 component is mounted and ready to be used
