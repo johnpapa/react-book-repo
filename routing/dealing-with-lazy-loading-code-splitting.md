@@ -56,7 +56,7 @@ class Async extends React.Component {
     return(
       <React.Fragment>
         {Component ? <Component /> : <div>Loading...</div>}
-        </React.Fragment>
+      </React.Fragment>
     )
   }
 }
