@@ -119,3 +119,5 @@ The big difference here is getting our component like this `const { Component } 
 ```
 
 `/Products/Products` has been replaced with `/Products`, much better.
+
+Head back to your browser and try to navigating to the different routes. You will notice how there are bundles being loaded in every time one of our lazy routes are hit. That's it, you know have lazy loaded routes and your mobile users will thank you.
