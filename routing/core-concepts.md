@@ -17,6 +17,8 @@ npm install --save react-router-dom
 ### Adding the router
 
 ```js
+// index.js
+
 import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.render((
