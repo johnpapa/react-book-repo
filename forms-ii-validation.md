@@ -15,7 +15,7 @@ You can have all the elements and their validation in one giant component but it
 
 With this one we mean that we need to create a component around our element. To do so is quite simple:
 
-```
+```js
 import React from 'react';
 
 class Input extends React.Component {
@@ -44,9 +44,9 @@ Now we will see that it pays off to wrap our `input` element in a component. Add
 - validate on every value change, we need to add a callback to `onChange`
 
 #### Render the error
-Let alter the `render()` method to the below:
+Alter the `render()` method to the below:
 
-```
+```js
 render() {
   return (
     <InputContainer>
@@ -64,7 +64,7 @@ render() {
 
 Here we are conditionally displaying the error message, assuming its on the state:
 
-```
+```js
 {this.state.error &&
   <ErrorMessage>{this.state.error}</ErrorMessage>
 }
@@ -80,12 +80,12 @@ const validate = (val, errMessage) => {
   return valid ? '' : errMessage;
 };
 ``` 
-Our function above simply tests wether our input value matches a RegEx pattern and if so its valid, if not then we return the error message.
+Our function above simply tests wether our input value matches a RegEx pattern and if so its valid, if not, then we return the error message.
 
 #### Managing the state
-So who is calling this function? Well the handleChange() method is, like so:
+So who is calling this function? Well the `handleChange()` method is, like so:
 
-```
+```js
 handleChange = (ev) => {
   const { errMessage } = this.props;
 
@@ -101,7 +101,7 @@ We do two things here, firstly we call `validate()` to see if there was an error
 
 The full code for our component so far looks like this:
 
-```
+```js
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -176,7 +176,7 @@ Usually when you put input elements in a form you want to be able to tell the fo
 
 We there update our `handleChange()` method to now make a call to the `notify()` function that we pass in, like so: 
 
- ```
+ ```js
  handleChange = (ev) => {
   const { errMessage, name, notify } = this.props;
 
@@ -193,12 +193,12 @@ We there update our `handleChange()` method to now make a call to the `notify()`
  #### Setting up the form
  Ok great, we have a way to communicate errors back to the form, what about the form itself, what does it need to do for this to work? It needs the following:
  
-- a method that it can hook up the notify property
+- a method that it can hook up the `notify` property
 - determine what to do if one or more elements are invalid, like for example disable the submit button
 
 We decide on creating a dedicated component for our form as well:
 
-```
+```js
 import React from 'react';
 import styled from 'styled-components';
 import Input from './Input';
@@ -239,7 +239,7 @@ export default Form;
 ```  
 At this point we have hooked up our notify `input` property to a method on our component called `notify()`, like so:
 
-```
+```html
 <Input
   errMessage="Must contain 2-3 digits" 
   desc="2-3 characters"
@@ -251,14 +251,13 @@ At this point we have hooked up our notify `input` property to a method on our c
 As you can see our `notify()` method doesn't do much yet, but it will:
 
 ```
-notify = (name, isValid) => {
-}
+notify = (name, isValid) => {}
 
 ```
 
-So what do we need to accomplish with a call to notify() ? The first thing we need to accomplish is telling the form that one of your inputs is invalid. The other is to set the whole form as invalid. Based on that we define our `notify()` code as the following:
+So what do we need to accomplish with a call to `notify()` ? The first thing we need to accomplish is telling the form that one of your inputs is invalid. The other is to set the whole form as invalid. Based on that we define our `notify()` code as the following:
 
-```
+```js
 notify = (name, isValid) => {
   this.setState({
     [name]: isValid,
@@ -269,11 +268,11 @@ notify = (name, isValid) => {
   });
 }
 ```
-We see above that we after having updated our state for our input element we set the state for `isValid` and call the method `validForm()` to determine its value. The reason for setting the `isValid` state like this is that setState() doesn't happen straight away so it is only in the callback that we can guarantee that it's state has been updated.
+We see above that we after having updated our state for our input element we set the state for `isValid` and call the method `validForm()` to determine its value. The reason for setting the `isValid` state like this is that `setState()` doesn't happen straight away so it is only in the callback that we can guarantee that it's state has been updated.
 
 `isValid` is the property we will use in the markup to determine wether our form is valid. Let's define the method `validForm()` next:
 
-```
+```js
 validForm = () => {
   const keys = Object.keys(this.state);
   for (let i = 0; i < keys.length; i++) {
