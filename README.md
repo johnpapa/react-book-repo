@@ -2,7 +2,7 @@
 
 React is a very popular choice when building a SPA, Single Page Application. 
 
-A Single Page Application differs from a normal web application in that you remain on the same URL and thereby the same page, hence the name. To create many pages in a Single Page Application we instead use the hashbang, # and listen to changes on it, for example `http://myapp.com#/products` and `http://myapp.com#/users` is considered different pages in a Single Page Application. More on routing in the [Routing](/routing/core-concepts.md) section.
+A Single Page Application differs from a normal web application in that you remain on the same URL and thereby the same page, hence the name. To create many pages in a Single Page Application we instead use the hash, # and listen to changes on it, for example `http://myapp.com#/products` and `http://myapp.com#/users` is considered different pages in a Single Page Application. More on routing in the [Routing](/routing/core-concepts.md) section.
 
 React was created by Facebook. 
 
