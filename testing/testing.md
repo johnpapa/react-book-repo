@@ -77,4 +77,30 @@ As we can see it has created a test using `it` and have also created a component
  
 How bout we try adding those add.js file and its corresponding test?
 
+Let's first add add.js, like so:
 
+```js
+// add.js
+function add(a,b) {
+  return a + b;
+}
+
+export default add;
+```
+
+followed by the test
+
+```js
+// __tests__/add.js
+
+import add from '../add';
+
+it('testing add', () => {
+  const actual = add(1,3);
+  expect(actual).toBe(4);
+});
+```
+Our Jest session is still running in the terminal:
+![](/assets/Screen Shot 2018-05-31 at 14.40.56.png)
+
+We can see that we now have two passing tests.
