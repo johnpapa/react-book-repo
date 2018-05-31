@@ -111,7 +111,7 @@ Any decent test runner/framework should give us the ability to debug our tests. 
 - ignore tests
 - let us add breakpoints in our IDE (more up to the IDE vendor to make that happen)
 - let us run our tests in a Browser
-#### Run specific tests
+#### Run specific test files
 Let us look at how to do these things, let's start with running specific tests. First off we will add another file `subtract.js` and a corresponding test.
 
 ```js
@@ -144,4 +144,8 @@ If you don't see this press `w` as indicated on the screen. The above give us a 
 - `q`, quits the watch mode
 - `Enter`, to trigger a test run
 
-Given the above description we will try to filter it down to only test the add.js file so we type `p`
+Given the above description we will try to filter it down to only test the add.js file so we type `p`:
+![](/assets/Screen Shot 2018-05-31 at 14.52.06.png)
+This takes us to a pattern dialog where we can type in the file name. Which we do:
+![](/assets/Screen Shot 2018-05-31 at 14.52.18.png)
+Above we can now see that only the add.js file will be targeted.
