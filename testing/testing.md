@@ -14,7 +14,7 @@ Let's try to set it up and see how much configuration is needed.
 If you just want to try it there is a [Jest REPL](https://repl.it/languages/jest) where you will be able to write tests among other things.
 
 ### Writing our first test
-To make the rest runner find our tests we need to follow one of three conventions:
+To make the test runner find our tests we need to follow one of three conventions:
 
 - Create a \_\_tests\__\ directory and place your files in there
 - Make file match *spec.js
@@ -38,5 +38,6 @@ describe('add', () => {
     expect(add(1, 2)).toBe(3);
   });
 });
-
 ```
+We see above that we are using `describe` to create a test suite and `it` to create a test within the test suite. We also see that we use `expect` to assert on the result.
+
