@@ -191,3 +191,9 @@ it.skip('testing add', () => {
 ```
 The resulting terminal clearly indicated that we skipped a test:
 ![](/assets/Screen Shot 2018-05-31 at 15.00.42.png)
+#### Break points
+Now this one is a bit IDE dependant, for this section we will cover how to do this VS Code. 
+
+TODO
+#### Run in a browser
+TODO
