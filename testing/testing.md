@@ -180,3 +180,14 @@ it.only('testing add', () => {
 ```
 and the terminal now looks like so:
 ![](/assets/Screen Shot 2018-05-31 at 14.58.49.png)
+We can see that adding `.only` works really fine if we only want to run that test. We can use `.skip` to make the test runner skip a specific test:
+
+```js
+
+it.skip('testing add', () => {
+  const actual = add(1,3);
+  expect(actual).toBe(4);
+});
+```
+The resulting terminal clearly indicated that we skipped a test:
+![](/assets/Screen Shot 2018-05-31 at 15.00.42.png)
