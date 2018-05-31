@@ -149,3 +149,34 @@ Given the above description we will try to filter it down to only test the add.j
 This takes us to a pattern dialog where we can type in the file name. Which we do:
 ![](/assets/Screen Shot 2018-05-31 at 14.52.18.png)
 Above we can now see that only the add.js file will be targeted.
+
+#### Run specific tests
+We have learned how to narrow it down to specific files. We can narrow it down to specific tests even using the `p`, pattern approach. First off we will need to add a test so we can actually filter it down:
+
+```js
+// __tests__/add.js
+
+import add from '../add';
+
+it('testing add', () => {
+  const actual = add(1,3);
+  expect(actual).toBe(4);
+});
+
+it('testing add - should be negative', () => {
+  const actual = add(-2,1);
+  expect(actual).toBe(-1);
+});
+```
+At this point our terminal looks like this:
+![](/assets/Screen Shot 2018-05-31 at 14.57.19.png)
+So we have two passing tests in the same file but we only want to run a specific test. We do that by adding the `.only` call to the test, like so:
+
+```js
+it.only('testing add', () => {
+  const actual = add(1,3);
+  expect(actual).toBe(4);
+});
+```
+and the terminal now looks like so:
+![](/assets/Screen Shot 2018-05-31 at 14.58.49.png)
