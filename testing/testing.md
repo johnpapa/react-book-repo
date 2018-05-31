@@ -104,3 +104,44 @@ Our Jest session is still running in the terminal:
 ![](/assets/Screen Shot 2018-05-31 at 14.40.56.png)
 
 We can see that we now have two passing tests.
+
+### Debugging
+Any decent test runner/framework should give us the ability to debug our tests. It should give us the ability to:
+- run specific tests
+- ignore tests
+- let us add breakpoints in our IDE (more up to the IDE vendor to make that happen)
+- let us run our tests in a Browser
+#### Run specific tests
+Let us look at how to do these things, let's start with running specific tests. First off we will add another file `subtract.js` and a corresponding test.
+
+```js
+// subtract.js
+
+function subtract(a,b) {
+  return a - b;
+}
+
+export default subtract;
+```
+and the test:
+
+```js
+// __tests__/subtract.js
+import subtract from '../subtract';
+
+it('testing subtract', () => {
+  const actual = subtract(3,2);
+  expect(actual).toBe(1);
+});
+```
+Let's have a look at our terminal again and especially the bottom of it:
+![](/assets/Screen Shot 2018-05-31 at 14.48.47.png)
+If you don't see this press `w` as indicated on the screen. The above give us a range of commands which will make our debugging easier:
+
+- `a`, runs all the tests
+- `p` this will allow us to specify a pattern, typically we want to specify the name of a file here to make it only run that file.
+- `t` it does the same as `p` but it let's us specify a test name instead
+- `q`, quits the watch mode
+- `Enter`, to trigger a test run
+
+Given the above description we will try to filter it down to only test the add.js file so we type `p`
