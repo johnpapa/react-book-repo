@@ -197,3 +197,4 @@ Now this one is a bit IDE dependant, for this section we will cover how to do th
 TODO
 #### Run in a browser
 TODO
+## Snapshot testing
