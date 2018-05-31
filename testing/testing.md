@@ -62,5 +62,19 @@ yarn test
 ![](/assets/Screen Shot 2018-05-31 at 14.30.30.png)
 It will show the above image. One executed test suite, one passing tests and host of commands that we will explore in a bit. It seems to have run the file `src/App.test.js`. Let's have a look at said file:
 
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
+it('renders without crashing', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(<App />, div);
+  ReactDOM.unmountComponentAtNode(div);
+});
+```
+As we can see it has created a test using `it` and have also created a component using `ReactDOM.render(<App />, div)`, followed by cleaning up after itself by calling `ReactDOM.unmount(div)`. We haven't really done any assertions at this point, we have just tried to create a component with no errors as the result, which is good to know though.
+ 
+How bout we try adding those add.js file and its corresponding test?
 
 
