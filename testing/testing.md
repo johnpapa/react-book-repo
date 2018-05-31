@@ -54,10 +54,13 @@ expect(2).toBe(1) // fails
 There are a ton of matchers so I urge you to have a look at the ones that exists and try to use the appropriate matcher [Matchers](https://facebook.github.io/jest/docs/en/expect.html)
 
 ### Running our test
-The simplest thing we can do is just to create a project using `create-react-app`, cause the Jest is already set up in there. Once it's create let's add the add.js file and corresponding test file:
+The simplest thing we can do is just to create a project using `create-react-app`, cause the Jest is already set up in there. Once we have the project created and all dependencies installed we can simply run:
 
 ```
-// __tests__/add.js
-// add.js
+yarn test
 ```
+![](/assets/Screen Shot 2018-05-31 at 14.30.30.png)
+It will show the above image. One executed test suite, one passing tests and host of commands that we will explore in a bit. It seems to have run the file `src/App.test.js`. Let's have a look at said file:
+
+
 
