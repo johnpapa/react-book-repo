@@ -39,5 +39,17 @@ describe('add', () => {
   });
 });
 ```
-We see above that we are using `describe` to create a test suite and `it` to create a test within the test suite. We also see that we use `expect` to assert on the result.
+We see above that we are using `describe` to create a test suite and `it` to create a test within the test suite. We also see that we use `expect` to assert on the result. The `expect` give us access to a lot of matchers, a matcher is the function we call after the `expect`:
+
+```
+expect(something).matcher(value)
+```
+As you can see in our test example we are using a matcher called `toBe()` which essentially matches what's inside the `expect` to whats inside the matcher, example:
+
+```
+expect(1).toBe(1) // succeeds
+expect(2).toBe(1) // fails
+```
+
+There are a ton of matchers so I urge you to have a look at the ones that exists and try to use the appropriate matcher [Matchers](https://facebook.github.io/jest/docs/en/expect.html)
 
