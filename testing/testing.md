@@ -29,9 +29,8 @@ function add(a, b) {
 }
 
 module.exports = add;
-//
 
-// \_\_tests\_\_/add.js
+// __tests__/add.js
 
 const add = require('../add');
 describe('add', () => {

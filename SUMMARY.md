@@ -45,7 +45,7 @@
 ## TESTING
 
 * [Jest](testing/testing.md)
-* Nock
+* [Nock](testing/nock.md)
 * Enzyme
 
 ## REDUX
