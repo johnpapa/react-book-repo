@@ -270,3 +270,87 @@ We see that our `todo` is an object instead of a string so it has a `title` and 
 It clearly indicates something is different and asks us to inspect the code. If we are happy with the changes we should press `u` to update the snapshot to its new version. So look at the code and `yes` this is an intended change so therefore we press `u`. We end up with the following image telling us everything is ok:
 
 ![](/assets/Screen Shot 2018-06-01 at 15.50.38.png)
+
+## Mocking
+Mocking is one of those things that needs to work well. Mocking in Jest is quite easy. You need to create your mocks in a directory that is adjacent to your module. Or more like a child directory to the module. Let's show what I mean in code. Imagine you have the following module:
+
+```js
+const data = [{
+  title: 'data from database'
+}];
+
+export default data;
+```
+
+Let's look at a test for this one:
+
+```js
+import data from '../repository';
+
+describe('testing repository data', () => {
+  it('should return 1 item', () => {
+    console.log(data);
+    expect(data.length).toBe(1);
+  });
+});
+```
+Not the best of tests but it is A test. Let's create our mock so that our file structure look like so:
+
+```
+repository.js
+__mocks__/repository.js
+```
+Our mock should look like this:
+
+```js
+// __mocks__/repository.js
+const data = [{
+  title: 'mocked data'
+}];
+
+export default data;
+```
+
+To use this mock we need to call `jest.mock()` inside of our test, like so:
+
+```
+// __tests__/repository.js
+
+import data from '../repository';
+jest.mock('../repository');
+
+describe('testing repository data', () => {
+  it('should return 1 item', () => {
+    console.log(data);
+    expect(data.length).toBe(1);
+  });
+});
+```
+Now it uses our mock instead of the actual module. Ok you say, why would I want to mock the very thing I want to test. Short answer is - you wouldn't. So therefore we are going to create another file `consumer.js` that use our `repository.js`. So let's look at the code for that and its corresponding test:
+
+```js
+// consumer.js
+
+import data from './repository';
+
+const item = { title: 'consumer' };
+
+export default [ ...data, { ...item}];
+```
+Above we clearly see how our consumer use our `repository.js` and now we want to mock it so we can focus on testing the consumer module. Let's have a look at the test:
+
+```js
+import data from '../consumer';
+jest.mock('../repository');
+
+describe('testing consumer data', () => {
+  it('should return 2 items', () => {
+    console.log(data);
+    expect(data.length).toBe(2);
+  });
+});
+```
+We use `jest.mock` and mocks away the only external dependency this module had.
+
+What about libs like `lodash` or `jquery`, things that are not modules that we created but is dependant on? We can create mocks for those at the highest level by creating a `__mocks__` directory.
+
