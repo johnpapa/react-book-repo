@@ -197,13 +197,52 @@ First thing we are going to do is install an extension. Head over to the extensi
 ![](/assets/Screen Shot 2018-06-01 at 15.19.07.png)
 Install this extension and head back to your code. Now we have some added capabilities. All of our tests should have a `Debug` link over every single test. At this point we can add a breakpoint and then press our `Debug` link. Your break point should now be hit and it should look like so:
 ![](/assets/Screen Shot 2018-06-01 at 15.21.44.png)
-TODO
-#### Run in a browser
-TODO
+
 ## Snapshot testing
 Snapshot is about creating a snapshot, a view of what the DOM looks like when you render your component. It's used to ensure that when you or someone else does a change to the component the snapshot is there to tell you, you did a change, does the change look ok?
 
 If you agree with the change you made you can easily update the snapshot with what DOM it now renders. So snapshot is your friend to safeguard you from unintentional changes.
 
-Let's see how we can create a a snapshot:
+Let's see how we can create a a snapshot. First off we might need to install a dependency:
+
+```
+yarn add react-test-renderer --save
+```
+Next step is to write a component and a test to go along with it. It should look something like this:
+
+```js
+// Our component
+import React from 'react';
+
+const Todos = ({ todos }) => (
+  <React.Fragment>
+    {todos.map(todo => <div>{todo}</div>)}
+  </React.Fragment>
+);
+
+export default Todos;
+```
+
+```js
+import renderer from 'react-test-renderer';
+import React from 'react';
+
+import Todos from '../Todos';
+
+test('Todo - should create snapshot', () => {
+  const component = renderer.create(
+    <Todos todos={['item1', 'item2']} />,
+  );
+  let tree = component.toJSON();
+  expect(tree).toMatchSnapshot();
+})
+```
+Note how import the component we are about to test:
+
+```
+import Todos from '../Todos';
+
+```
+This is followed by using the `renderer` to create an instance of our component. Next step is turn that component into a JSON representation like so `component.toJSON()` and lastly we assert on this by calling `expect(tree).toMatchSnapshot()`, this will call a snapshot that will place itself in a `__snapshots__` directory under your `tests` directory.
+### 
 
