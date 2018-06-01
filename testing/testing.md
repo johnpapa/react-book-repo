@@ -354,3 +354,28 @@ We use `jest.mock` and mocks away the only external dependency this module had.
 
 What about libs like `lodash` or `jquery`, things that are not modules that we created but is dependant on? We can create mocks for those at the highest level by creating a `__mocks__` directory.
 
+## Coverage
+We have come to the final section in this chapter. This is about realizing how much of our code is covered by tests. To check this we just run:
+
+```
+yarn test --coverage
+```
+
+This will give us a table inside of the terminal that will tell us about the coverage in percentage per file. It will also produce a `coverage` directory that we can navigate into and find a `HTML` report of our coverage. But first off let's change the `add.js` file to add a piece of logic that needs a test, like so:
+
+```js
+function add(a,b) {
+  if(a > 0 && b > 0 ) {
+    return a + b;
+  }
+  throw new Error('parameters must be larger than zero');
+}
+
+export default add;
+```
+Now we can see we have more than one path through the application. If our input params are larger than zero then we have existing tests that cover it. However if one or more parameters is below zero then we enter a new execution path and that one is NOT covered by tests. Let's see what that looks like in the coverage report by navigating to `coverage/lcov-report`. We can show this by typing for example `http-server -p 5000` and we will get a report looking like this:
+![](/assets/Screen Shot 2018-06-01 at 17.26.16.png)
+Now we can navigate to `src/add.js` and it should look like this:
+
+![](/assets/Screen Shot 2018-06-01 at 17.27.13.png)
+Now we can clearly see how our added code is indicated in red and that we need to add a test to cover that new execution path.
