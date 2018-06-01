@@ -373,6 +373,8 @@ We use `jest.mock` and mocks away the only external dependency this module had.
 
 What about libs like `lodash` or `jquery`, things that are not modules that we created but is dependant on? We can create mocks for those at the highest level by creating a `__mocks__` directory.
 
+There is a lot more that can be said about mocking, for more details check out the documentation [Mocking docs](https://facebook.github.io/jest/docs/en/mock-functions.html)
+
 ## Coverage
 We have come to the final section in this chapter. This is about realizing how much of our code is covered by tests. To check this we just run:
 
