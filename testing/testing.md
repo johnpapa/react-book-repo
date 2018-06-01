@@ -1,5 +1,5 @@
 # Jest
-Jest sells itself by saying its 
+Jest sells itself by saying it's 
 > Delightful JavaScript testing
 
 
@@ -11,7 +11,7 @@ What makes is delightful? It boosts that it has a *zero-configuration* experienc
  
 ## Get started 
 Let's try to set it up and see how much configuration is needed.
-If you just want to try it there is a [Jest REPL](https://repl.it/languages/jest) where you will be able to write tests among other things.
+If you just want to try it, there is a [Jest REPL](https://repl.it/languages/jest) where you will be able to write tests among other things.
 
 ### Writing our first test
 To make the test runner find our tests we need to follow one of three conventions:
@@ -39,12 +39,12 @@ describe('add', () => {
   });
 });
 ```
-We see above that we are using `describe` to create a test suite and `it` to create a test within the test suite. We also see that we use `expect` to assert on the result. The `expect` give us access to a lot of matchers, a matcher is the function we call after the `expect`:
+We see above that we are using `describe` to create a test suite and `it` to create a test within the test suite. We also see that we use `expect` to assert on the result. The `expect` gives us access to a lot of matchers, a matcher is the function we call after the `expect`:
 
 ```
 expect(something).matcher(value)
 ```
-As you can see in our test example we are using a matcher called `toBe()` which essentially matches what's inside the `expect` to whats inside the matcher, example:
+As you can see in our test example we are using a matcher called `toBe()` which essentially matches what's inside the `expect` to what's inside the matcher, example:
 
 ```
 expect(1).toBe(1) // succeeds
@@ -54,15 +54,21 @@ expect(2).toBe(1) // fails
 There are a ton of matchers so I urge you to have a look at the ones that exists and try to use the appropriate matcher [Matchers](https://facebook.github.io/jest/docs/en/expect.html)
 
 ### Running our test
-The simplest thing we can do is just to create a project using `create-react-app`, cause the Jest is already set up in there. Once we have the project created and all dependencies installed we can simply run:
+The simplest thing we can do is just to create a project using `create-react-app`, cause Jest is already set up in there. Once we have the project created and all dependencies installed we can simply run:
 
 ```
 yarn test
 ```
 ![](/assets/Screen Shot 2018-05-31 at 14.30.30.png)
-It will show the above image. One executed test suite, one passing tests and host of commands that we will explore in a bit. It seems to have run the file `src/App.test.js`. Let's have a look at said file:
+
+It will show the above image containing: 
+- One executed test suite, 
+- one passing tests 
+and host of commands that we will explore in a bit. It seems to have run the file `src/App.test.js`. Let's have a look at said file:
 
 ```js
+// src/App.test.js
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
@@ -75,12 +81,13 @@ it('renders without crashing', () => {
 ```
 As we can see it has created a test using `it` and have also created a component using `ReactDOM.render(<App />, div)`, followed by cleaning up after itself by calling `ReactDOM.unmount(div)`. We haven't really done any assertions at this point, we have just tried to create a component with no errors as the result, which is good to know though.
  
-How bout we try adding those add.js file and its corresponding test?
+How bout we try adding `add.js` file and its corresponding test?
 
-Let's first add add.js, like so:
+Let's first add `add.js`, like so:
 
 ```js
 // add.js
+
 function add(a,b) {
   return a + b;
 }
@@ -111,6 +118,7 @@ Any decent test runner/framework should give us the ability to debug our tests. 
 - ignore tests
 - let us add breakpoints in our IDE (more up to the IDE vendor to make that happen)
 - let us run our tests in a Browser
+
 #### Run specific test files
 Let us look at how to do these things, let's start with running specific tests. First off we will add another file `subtract.js` and a corresponding test.
 
@@ -134,8 +142,9 @@ it('testing subtract', () => {
   expect(actual).toBe(1);
 });
 ```
-Let's have a look at our terminal again and especially the bottom of it:
+Let's have a look at our terminal again and especially at the bottom of it:
 ![](/assets/Screen Shot 2018-05-31 at 14.48.47.png)
+
 If you don't see this press `w` as indicated on the screen. The above give us a range of commands which will make our debugging easier:
 
 - `a`, runs all the tests
@@ -146,8 +155,10 @@ If you don't see this press `w` as indicated on the screen. The above give us a 
 
 Given the above description we will try to filter it down to only test the add.js file so we type `p`:
 ![](/assets/Screen Shot 2018-05-31 at 14.52.06.png)
+
 This takes us to a pattern dialog where we can type in the file name. Which we do:
 ![](/assets/Screen Shot 2018-05-31 at 14.52.18.png)
+
 Above we can now see that only the add.js file will be targeted.
 
 #### Run specific tests
@@ -170,6 +181,7 @@ it('testing add - should be negative', () => {
 ```
 At this point our terminal looks like this:
 ![](/assets/Screen Shot 2018-05-31 at 14.57.19.png)
+
 So we have two passing tests in the same file but we only want to run a specific test. We do that by adding the `.only` call to the test, like so:
 
 ```js
@@ -180,10 +192,10 @@ it.only('testing add', () => {
 ```
 and the terminal now looks like so:
 ![](/assets/Screen Shot 2018-05-31 at 14.58.49.png)
+
 We can see that adding `.only` works really fine if we only want to run that test. We can use `.skip` to make the test runner skip a specific test:
 
 ```js
-
 it.skip('testing add', () => {
   const actual = add(1,3);
   expect(actual).toBe(4);
@@ -191,10 +203,12 @@ it.skip('testing add', () => {
 ```
 The resulting terminal clearly indicated that we skipped a test:
 ![](/assets/Screen Shot 2018-05-31 at 15.00.42.png)
+
 #### Debugging with Break points
-Now this one is a bit IDE dependant, for this section we will cover how to do this VS Code. 
+Now this one is a bit IDE dependant, for this section we will cover how to do this in VS Code. 
 First thing we are going to do is install an extension. Head over to the extension menu and search for `Jest`. The following should be showing:
 ![](/assets/Screen Shot 2018-06-01 at 15.19.07.png)
+
 Install this extension and head back to your code. Now we have some added capabilities. All of our tests should have a `Debug` link over every single test. At this point we can add a breakpoint and then press our `Debug` link. Your break point should now be hit and it should look like so:
 ![](/assets/Screen Shot 2018-06-01 at 15.21.44.png)
 
@@ -239,13 +253,14 @@ test('Todo - should create snapshot', () => {
   expect(tree).toMatchSnapshot();
 })
 ```
-Note how import the component we are about to test:
+Note how `import`, imports the component we are about to test:
 
 ```
 import Todos from '../Todos';
 
 ```
 This is followed by using the `renderer` to create an instance of our component. Next step is turn that component into a JSON representation like so `component.toJSON()` and lastly we assert on this by calling `expect(tree).toMatchSnapshot()`, this will call a snapshot that will place itself in a `__snapshots__` directory under your `tests` directory.
+
 ### Managing the snapshot
 Ok, so we have a snapshot, now what? Let's do a change to our todo component, like so:
 
@@ -267,14 +282,17 @@ export default Todos;
 ```
 We see that our `todo` is an object instead of a string so it has a `title` and `description` property. This WILL make our snapshot react and it will say the following:
 ![](/assets/Screen Shot 2018-06-01 at 15.47.36.png)
+
 It clearly indicates something is different and asks us to inspect the code. If we are happy with the changes we should press `u` to update the snapshot to its new version. So look at the code and `yes` this is an intended change so therefore we press `u`. We end up with the following image telling us everything is ok:
 
 ![](/assets/Screen Shot 2018-06-01 at 15.50.38.png)
 
 ## Mocking
-Mocking is one of those things that needs to work well. Mocking in Jest is quite easy. You need to create your mocks in a directory that is adjacent to your module. Or more like a child directory to the module. Let's show what I mean in code. Imagine you have the following module:
+Mocking is one of those things that needs to work well. Mocking in Jest is quite easy. You need to create your mocks in a directory that is adjacent to your module, or more like a child directory to the module. Let's show what I mean in code. Imagine you have the following module:
 
 ```js
+// repository.js
+
 const data = [{
   title: 'data from database'
 }];
@@ -285,6 +303,8 @@ export default data;
 Let's look at a test for this one:
 
 ```js
+// __tests__/repository.js
+
 import data from '../repository';
 
 describe('testing repository data', () => {
@@ -294,7 +314,7 @@ describe('testing repository data', () => {
   });
 });
 ```
-Not the best of tests but it is A test. Let's create our mock so that our file structure look like so:
+Not the best of tests but it is "a test". Let's create our mock so that our file structure look like so:
 
 ```
 repository.js
@@ -332,7 +352,6 @@ Now it uses our mock instead of the actual module. Ok you say, why would I want 
 // consumer.js
 
 import data from './repository';
-
 const item = { title: 'consumer' };
 
 export default [ ...data, { ...item}];
@@ -375,9 +394,11 @@ export default add;
 ```
 Now we can see we have more than one path through the application. If our input params are larger than zero then we have existing tests that cover it. However if one or more parameters is below zero then we enter a new execution path and that one is NOT covered by tests. Let's see what that looks like in the coverage report by navigating to `coverage/lcov-report`. We can show this by typing for example `http-server -p 5000` and we will get a report looking like this:
 ![](/assets/Screen Shot 2018-06-01 at 17.26.16.png)
+
 Now we can navigate to `src/add.js` and it should look like this:
 
 ![](/assets/Screen Shot 2018-06-01 at 17.27.13.png)
+
 Now we can clearly see how our added code is indicated in red and that we need to add a test to cover that new execution path.
 
 Next we add a test to cover for this, like so:
