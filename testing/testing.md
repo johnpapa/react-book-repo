@@ -224,6 +224,8 @@ export default Todos;
 ```
 
 ```js
+// The test
+
 import renderer from 'react-test-renderer';
 import React from 'react';
 
@@ -244,5 +246,27 @@ import Todos from '../Todos';
 
 ```
 This is followed by using the `renderer` to create an instance of our component. Next step is turn that component into a JSON representation like so `component.toJSON()` and lastly we assert on this by calling `expect(tree).toMatchSnapshot()`, this will call a snapshot that will place itself in a `__snapshots__` directory under your `tests` directory.
-### 
+### Managing the snapshot
+Ok, so we have a snapshot, now what? Let's do a change to our todo component, like so:
 
+```js
+import React from 'react';
+
+const Todos = ({ todos }) => (
+  <React.Fragment>
+    {todos.map(todo => (
+      <React.Fragment>
+        <h3>{todo.title}</h3>
+        <div>{todo.description}</div>
+      </React.Fragment>
+    ))}
+  </React.Fragment>
+);
+
+export default Todos;
+```
+We see that our `todo` is an object instead of a string so it has a `title` and `description` property. This WILL make our snapshot react and it will say the following:
+![](/assets/Screen Shot 2018-06-01 at 15.47.36.png)
+It clearly indicates something is different and asks us to inspect the code. If we are happy with the changes we should press `u` to update the snapshot to its new version. So look at the code and `yes` this is an intended change so therefore we press `u`. We end up with the following image telling us everything is ok:
+
+![](/assets/Screen Shot 2018-06-01 at 15.50.38.png)
