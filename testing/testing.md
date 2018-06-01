@@ -333,7 +333,7 @@ export default data;
 
 To use this mock we need to call `jest.mock()` inside of our test, like so:
 
-```
+```js
 // __tests__/repository.js
 
 import data from '../repository';
@@ -403,7 +403,7 @@ Now we can clearly see how our added code is indicated in red and that we need t
 
 Next we add a test to cover for this, like so:
 
-```
+```js
 import add from '../add';
 
 describe('add', () => {
