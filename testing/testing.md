@@ -379,3 +379,25 @@ Now we can navigate to `src/add.js` and it should look like this:
 
 ![](/assets/Screen Shot 2018-06-01 at 17.27.13.png)
 Now we can clearly see how our added code is indicated in red and that we need to add a test to cover that new execution path.
+
+Next we add a test to cover for this, like so:
+
+```
+import add from '../add';
+
+describe('add', () => {
+  it('testing addition', () => {
+    const actual = add(1,2);
+    expect(actual).toBe(3);
+  })
+
+  it('testing addition with neg number', () => {
+    expect(() => {
+      add(-1,2);
+    }).toThrow('parameters must be larger than zero');
+  })
+})
+```
+Our second case should now cover for the execution path that leads to an exception being thrown. Let's rerun our coverage report:
+
+![](/assets/Screen Shot 2018-06-01 at 17.38.01.png)
