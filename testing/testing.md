@@ -191,10 +191,19 @@ it.skip('testing add', () => {
 ```
 The resulting terminal clearly indicated that we skipped a test:
 ![](/assets/Screen Shot 2018-05-31 at 15.00.42.png)
-#### Break points
+#### Debugging with Break points
 Now this one is a bit IDE dependant, for this section we will cover how to do this VS Code. 
-
+First thing we are going to do is install an extension. Head over to the extension menu and search for `Jest`. The following should be showing:
+![](/assets/Screen Shot 2018-06-01 at 15.19.07.png)
+Install this extension and head back to your code. Now we have some added capabilities. All of our tests should have a `Debug` link over every single test. At this point we can add a breakpoint and then press our `Debug` link. Your break point should now be hit and it should look like so:
+![](/assets/Screen Shot 2018-06-01 at 15.21.44.png)
 TODO
 #### Run in a browser
 TODO
 ## Snapshot testing
+Snapshot is about creating a snapshot, a view of what the DOM looks like when you render your component. It's used to ensure that when you or someone else does a change to the component the snapshot is there to tell you, you did a change, does the change look ok?
+
+If you agree with the change you made you can easily update the snapshot with what DOM it now renders. So snapshot is your friend to safeguard you from unintentional changes.
+
+Let's see how we can create a a snapshot:
+
