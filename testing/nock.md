@@ -124,8 +124,6 @@ it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<ProductsList />, div);
   ReactDOM.unmountComponentAtNode(div);
-
-  scope.isDone();
 });
  ```
 
@@ -133,7 +131,6 @@ Note above how we invoke the `nock()` method by first giving it the baseUrl `htt
 
 ![](/assets/Screen Shot 2018-06-04 at 15.00.47.png)
 
-Let's highlight some interesting bits in the code, we assign the result of calling `nock` to a variable `scope`. The last thing we do is to call `scope.isDone()`, this is a verification that our set up nock has been hit correctly.
 
 ## Query parameters
 What if we have a url that looks like this:
@@ -149,6 +146,42 @@ nock('http://myapi.com')
  .query({ page: 1, pageSize: 10 })
 ```
 
+## Verify your mock
+It's considered best practice to verify that the mocks you have set up are being hit. To do that we can call `done()` on the returned reference when we are calling `nock` like so:
+
+```js
+const scope = nock('http://myapi.com')
+    .get('/products')
+    .reply(200, {
+      products: [{ id: 1, name: 'nocked data' }]
+    }, {
+      'Access-Control-Allow-Origin': '*',
+      'Content-type': 'application/json'
+    });
+
+
+scope.done();
+```
+
+So what happens when we set up a mock and it's not being it? Well let's add another call to our test, like so:
+
+```js
+const users = nock('http://myapi.com')
+  .get('/users')
+  .reply(200, {
+    products: [{ id: 1, name: 'user' }]
+  }, {
+    'Access-Control-Allow-Origin': '*',
+    'Content-type': 'application/json'
+  });
+```
+
+Now it looks like this:
+
+![](/assets/Screen Shot 2018-06-04 at 15.19.02.png)
+
+
+## Block HTTP calls
 
 
 
