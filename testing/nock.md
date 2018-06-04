@@ -146,7 +146,7 @@ nock('http://myapi.com')
  .query({ page: 1, pageSize: 10 })
 ```
 
-## Verify your mock
+## Verify your mock/s
 It's considered best practice to verify that the mocks you have set up are being hit. To do that we can call `done()` on the returned reference when we are calling `nock` like so:
 
 ```js
