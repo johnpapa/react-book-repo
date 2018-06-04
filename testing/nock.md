@@ -76,10 +76,46 @@ import ProductsList from '../ProductsList';
 import nock from 'nock';
 
 it('renders without crashing', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(<ProductsList />, div);
+  ReactDOM.unmountComponentAtNode(div);
+});
+```
+Let's see first what happens if we don't set up a `nock`:
+
+We end up with the following:
+![](/assets/Screen Shot 2018-06-04 at 13.40.09.png)
+
+As you can see from the above it attempts to perform a network request. We should never do that when running a test. We could add a Jest mock for this that is definitely one way to solve it, then it would look like this:
+
+```js
+// __mocks__/products.js
+export const getProducts = async () => {
+  const products = await Promise.resolve([{ name: 'test' }]);
+  return products;
+}
+```
+
+That works but let's look at how to solve it with `nock`. Because we are attempting to call `fetch()` in a node environment we need to ensure it is set up correctly. Suggestion is to set up the `global.fetch` and assign `node-fetch` to it, like so:
+
+ ```js
+ // setupTests.js
+global.fetch = require('node-fetch');
+ ``` 
+ 
+ Let's now add `nock` to our test, like so:
+ 
+ ```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ProductsList from '../ProductsList';
+import nock from 'nock';
+
+it('renders without crashing', () => {
   const scope = nock('http://myapi.com')
     .get('/products')
     .reply(200, {
-      products: [{ id: 1, name: 'test' }]
+      products: [{ id: 1, name: 'nocked data' }]
     }, {
       'Access-Control-Allow-Origin': '*',
       'Content-type': 'application/json'
@@ -88,13 +124,14 @@ it('renders without crashing', () => {
   const div = document.createElement('div');
   ReactDOM.render(<ProductsList />, div);
   ReactDOM.unmountComponentAtNode(div);
+
+  scope.isDone();
 });
-```
-Let's see first what happens if we don't set up a `nock`:
-![](/assets/Screen Shot 2018-06-04 at 13.40.09.png)
+ ```
 
+Note above how we invoke the `nock()` method by first giving it the baseUrl `http://myapi.com` followed by the path `/products` and the HTTP verb `get` and how we define what the response should look like with `reply()`. We also give the `reply()` method a second argument to ensure `CORS` plays nicely. At this point our test works.:
 
-Note above how we invoke the `nock()` method by first giving it the baseUrl `http://myapi.com` followed by the path `/products` and the HTTP verb `get` and how we define what the response should look like with `reply()`. We also give the `reply()` method a second argument to ensure `CORS` plays nicely. 
+![](/assets/Screen Shot 2018-06-04 at 15.00.47.png)
 
 
 
