@@ -90,7 +90,11 @@ it('renders without crashing', () => {
   ReactDOM.unmountComponentAtNode(div);
 });
 ```
-Note above how we invoke the `nock()` method by first giving it the baseUrl `http://myapi.com` followed by the path `/products` and the HTTP verb `get` and how we define what the response should look like with `reply()`. We also give the `reply()` method a second argument to ensure `CORS` plays nicely. Trying to run this test works out fine. Ok, so what happens if we don't use `nock`?
+Let's see first what happens if we don't set up a `nock`:
+![](/assets/Screen Shot 2018-06-04 at 13.40.09.png)
+
+
+Note above how we invoke the `nock()` method by first giving it the baseUrl `http://myapi.com` followed by the path `/products` and the HTTP verb `get` and how we define what the response should look like with `reply()`. We also give the `reply()` method a second argument to ensure `CORS` plays nicely. 
 
 
 
