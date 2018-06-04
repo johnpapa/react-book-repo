@@ -185,6 +185,8 @@ Now it looks like this:
 You should never let a HTTP call happen for real so therefore make sure to shut off that ability. We can do so by adding the following line to `setupTests.js`:
 
 ```js
+// setupTests.js
+
 import nock from 'nock';
 nock.disableNetConnect();
 ```
