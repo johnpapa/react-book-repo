@@ -58,4 +58,40 @@ export default ProductsContainer;
 
 We can see that we use `product.js` module and call `getProducts()` in the `componentDidMount()` and end up rendering the data when it arrives. 
 
+## Testing it
+If we wanted to test ProductsList.js module we would want to focus on mocking away `products.js` cause it is a dependency. We could use the library `nock` for this. Let's start off by installing `nock`, like so:
+
+```js
+yarn add nock
+``` 
+
+Let's now create a test `__tests__/ProductsList.js` and define it like the following:
+
+```js
+// __tests__/ProductsList.js
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import ProductsList from '../ProductsList';
+import nock from 'nock';
+
+it('renders without crashing', () => {
+  const scope = nock('http://myapi.com')
+    .get('/products')
+    .reply(200, {
+      products: [{ id: 1, name: 'test' }]
+    }, {
+      'Access-Control-Allow-Origin': '*',
+      'Content-type': 'application/json'
+    });
+
+  const div = document.createElement('div');
+  ReactDOM.render(<ProductsList />, div);
+  ReactDOM.unmountComponentAtNode(div);
+});
+```
+Note above how we invoke the `nock()` method by first giving it the baseUrl `http://myapi.com` followed by the path `/products` and the HTTP verb `get` and how we define what the response should look like with `reply()`. We also give the `reply()` method a second argument to ensure `CORS` plays nicely. Trying to run this test works out fine. Ok, so what happens if we don't use `nock`?
+
+
+
  
