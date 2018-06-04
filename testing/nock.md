@@ -133,6 +133,23 @@ Note above how we invoke the `nock()` method by first giving it the baseUrl `htt
 
 ![](/assets/Screen Shot 2018-06-04 at 15.00.47.png)
 
+Let's highlight some interesting bits in the code, we assign the result of calling `nock` to a variable `scope`. The last thing we do is to call `scope.isDone()`, this is a verification that our set up nock has been hit correctly.
+
+## Query parameters
+What if we have a url that looks like this:
+
+```
+http://myapi.com/products?page=1&pageSize=10;
+```
+How we do we set up our `nock` to match it? Well, we can use the helper method `query` for that, like so:
+
+```js
+nock('http://myapi.com')
+  .get('/products')
+ .query({ page: 1, pageSize: 10 })
+```
+
+
 
 
  
