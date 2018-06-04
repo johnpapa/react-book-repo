@@ -191,6 +191,9 @@ import nock from 'nock';
 nock.disableNetConnect();
 ```
 
+## Summary
+There are a lot more you can do with `nock`, we have barely scraped the surface. Have a look at the official documentation [Nock documentation](https://www.npmjs.com/package/nock)
+
 
 
  
