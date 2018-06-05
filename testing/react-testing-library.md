@@ -174,8 +174,9 @@ Our last added test is using the `Simulate` helper to perform a click and we can
 ## Asynchronous tests and working with input
 We have so far shown you how to render a component, find the resulting elements and assert on them. We have also shown how you can carry out things like a click on a button. In this section we will show two things:
 
-- dealing with asynchronous actions
 - working with input
+- dealing with asynchronous actions
+
 
 We will build the following:
 
@@ -238,7 +239,61 @@ class Note extends React.Component {
 }
 
 export default Note;
-
 ```
 
+### Working with input
+To save data we need to enter data into an input and press the save button. Let's create a test for that:
+
+```js
+// __tests__/Note.js
+
+import {render, Simulate, wait} from 'react-testing-library'
+import React from 'react';
+import 'jest-dom/extend-expect'
+import Select from '../Note';
+
+describe('Note', () => {
+  it('save text', async() => {
+    const {getByText, getByTestId, getByPlaceholderText, container} = render(<Select />);
+    const text = getByPlaceholderText('change text');
+
+    text.value= 'input text';
+    Simulate.change(text);
+    Simulate.click(getByText('Save'));
+    
+    expect(getByTestId('saved')).toHaveTextContent('input text')
+  })
+});
+```
+We can see above that we use the helper `getByPlaceholderText` to get a reference to our input and we simply do `text.value = 'input text'` at that point. At that point we need to invoke `Simulate.change(text)` for the change to happen. Thereafter we can assert on the results by typing `expect(getByTestId('saved')).toHaveTextContent('input text')` 
+
+### Dealing with asynchronous
+We have another piece of functionality in our component namely pressing a `Load` button that invokes a `load` method, like so:
+
+```js
+load = () => {
+  var me = this;
+  setTimeout(() => {
+    me.setState({
+      data: [{ title: 'test' }, { title: 'test2' }]
+    })
+  }, 3000);
+}
+```
+We can see above that the change doesn't happen straight away, this due to us using a `setTimeout`. Having a look at our component we can see that we don't render out the `data` property unless it is set to a value:
+
+```js
+{this.state.data &&
+  <div data-testid="data">
+    {this.state.data.map(item => (
+      <div className="item" >{item.title}</div>
+    ))}
+  </div>
+}
+```
+Our test, we are about to write, needs to cater to this and wait for the `div` with attribute `data-testid="data"` to be present before it can assert on it. Let's see what that looks like, by adding a test to our test file:
+
+```js
+
+```
 
