@@ -47,7 +47,7 @@
 * [Jest](testing/testing.md)
 * [Nock](testing/nock.md)
 * [Enzyme](testing/enzyme.md)
-* react-testing-library
+* [react-testing-library](testing/react-testing-library.md)
 * cypress
 
 ## REDUX
