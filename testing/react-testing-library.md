@@ -121,4 +121,57 @@ As we can see above we are able to render our element and is also able query for
 
 ### Handling actions
 
+Let's have a look at our component again. Or rather let's look at an excerpt of it:
+
+```js
+// excerpt of Todos.js
+
+const Todos = ({ todos, select, selected }) => (
+  <React.Fragment>
+    {todos.map(todo => (
+      <React.Fragment key={todo.title}>
+        <h3 className={ selected && selected.title === todo.title ? 'selected' :'' }>{todo.title}</h3>
+        <div>{todo.description}</div>
+        <button onClick={() => select(todo)}>Select</button>
+      </React.Fragment>
+    ))}
+  </React.Fragment>
+);
+```
+We see above that we try to set the CSS class `selected` if a todo is selected. The way to get a Todo is selected is to click on it, we can see how we invoke the `select` method when we click on the button that is rendered by item. Let's try to test this out by adding a test:
+
+```js
+import {render, Simulate, wait} from 'react-testing-library'
+import React from 'react';
+import 'jest-dom/extend-expect'
+import Todos from '../Todos';
+
+const todos = [{
+  title: 'todo1'
+},
+{
+  title: 'todo2'
+}];
+
+describe('Todos', () => {
+  it('finds title', () => {
+    const {getByText, getByTestId, container} = render(<Todos todos={todos} />);
+    const elem = container.querySelector('h3');
+    expect(elem.innerHTML).toBe('todo1');
+  })
+
+  it('select todo', () => {
+    const {getByText, getByTestId, container} = render(<Todos todos={todos} />);
+    Simulate.click(getByText('Select'));
+    const elem = container.querySelector('.selected');
+    expect(elem).toBeTruthy();
+  })
+});
+```
+
+Our last added test is using the `Simulate` helper to perform a click and we can see that we are using the `getByText` helper to find the button. Thereafter we again use the `container` to the `selected` CSS class. 
+
+## Asynchronous tests
+
+
 
