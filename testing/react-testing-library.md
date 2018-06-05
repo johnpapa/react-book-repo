@@ -54,6 +54,8 @@ export default TodosContainer;
 Now to the test:
 
 ```js
+// Todos.test.js
+
 import {render, Simulate, wait} from 'react-testing-library';
 import React from 'react';
 import 'jest-dom/extend-expect'
@@ -85,7 +87,38 @@ const {getByText, getByTestId, container} = render(<Todos todos={todos} />)
 ```
 and we end up with the following helpers:
 - `getByText`, this grabs an element by it's text content
-- getByTestId, this grabs an element by  `data-testid`, so if you have an attribute on your element like so  `data-testid="saved` you would be querying it like so `getByTestId('saved')`
-- container
+- `getByTestId`, this grabs an element by  `data-testid`, so if you have an attribute on your element like so  `data-testid="saved` you would be querying it like so `getByTestId('saved')`
+- `container`, the div your component was rendered to
 get
+
+Let's fill in that test:
+
+```js
+// Todos.test.js
+
+import {render, Simulate, wait} from 'react-testing-library'
+import React from 'react';
+import 'jest-dom/extend-expect'
+import Todos from '../Todos';
+
+const todos = [{
+  title: 'todo1'
+},
+{
+  title: 'todo2'
+}];
+
+describe('Todos', () => {
+  it('finds title', () => {
+    const {getByText, getByTestId, container} = render(<Todos todos={todos} />);
+    const elem = container.querySelector('h3');
+    expect(elem.innerHTML).toBe('todo1');
+  })
+});
+```
+
+As we can see above we are able to render our element and is also able query for an `h3` element by using the `container` and the `querySelector`. Finally we assert on it. 
+
+### Handling actions
+
 
