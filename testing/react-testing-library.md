@@ -294,6 +294,36 @@ We can see above that the change doesn't happen straight away, this due to us us
 Our test, we are about to write, needs to cater to this and wait for the `div` with attribute `data-testid="data"` to be present before it can assert on it. Let's see what that looks like, by adding a test to our test file:
 
 ```js
+import {render, Simulate, wait} from 'react-testing-library'
+import React from 'react';
+import 'jest-dom/extend-expect'
+import Select from '../Note';
 
+describe('Note', () => {
+  it('save text', async() => {
+    const {getByText, getByTestId, getByPlaceholderText, container} = render(<Select />);
+    const text = getByPlaceholderText('change text');
+
+    text.value= 'input text';
+    Simulate.change(text);
+    Simulate.click(getByText('Save'));
+
+    console.log('saved', getByTestId('saved').innerHTML);
+    expect(getByTestId('saved')).toHaveTextContent('input text')
+  })
+
+  it('load data', async() => {
+    const {getByText, getByTestId, getByPlaceholderText, container} = render(<Select />);
+
+    Simulate.click(getByText('Load'));
+    await wait(() => getByTestId('data'))
+    const data = getByTestId('data')
+    const elem = data.querySelector(".item");
+    expect(elem.innerHTML).toBe('test');
+  })
+
+});
 ```
+
+Above we see the construct `await wait(() => getByTestId('data'))` that halts until the element is present. Thereafter we assert on the result.
 
