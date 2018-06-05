@@ -52,8 +52,8 @@
 
 ## REDUX
 
-* Redux - overview
-* Actions
+* [Redux - overview](redux/redux-overview.md)
+* [Actions](redux/actions.md)
 * Reducers
 * Store
 * Selectors

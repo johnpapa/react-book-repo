@@ -29,7 +29,7 @@ const Todos = ({ todos, select, selected }) => (
   <React.Fragment>
     {todos.map(todo => (
       <React.Fragment key={todo.title}>
-        <h3 className={ selected && selected.title === todo.title ? 'selected' :'' }>{todo.title}</h3>
+        <h3 data-testid="item" className={ selected && selected.title === todo.title ? 'selected' :'' }>{todo.title}</h3>
         <div>{todo.description}</div>
         <button onClick={() => select(todo)}>Select</button>
       </React.Fragment>
@@ -121,7 +121,7 @@ const todos = [{
 describe('Todos', () => {
   it('finds title', () => {
     const {getByText, getByTestId, container} = render(<Todos todos={todos} />);
-    const elem = container.querySelector('h3');
+    const elem = getByTestId('item');
     expect(elem.innerHTML).toBe('todo1');
   })
 });
@@ -167,15 +167,15 @@ const todos = [{
 describe('Todos', () => {
   it('finds title', () => {
     const {getByText, getByTestId, container} = render(<Todos todos={todos} />);
-    const elem = container.querySelector('h3');
+    const elem = getByTestId('item');
     expect(elem.innerHTML).toBe('todo1');
   })
 
   it('select todo', () => {
     const {getByText, getByTestId, container} = render(<Todos todos={todos} />);
     Simulate.click(getByText('Select'));
-    const elem = container.querySelector('.selected');
-    expect(elem).toBeTruthy();
+    const elem = getByTestId('item');
+    expect(elem.classList[0]).toBe('selected');
   })
 });
 ```
@@ -231,7 +231,8 @@ class Note extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <input placeholder="change text" onChange={this.onChange} />
+        <label htmlFor="change">Change text</label>
+        <input id="change" placeholder="change text" onChange={this.onChange} />
         <div data-testid="saved">{this.state.saved}</div>
         {this.state.data &&
         <div data-testid="data">
@@ -266,19 +267,20 @@ import Select from '../Note';
 
 describe('Note', () => {
   it('save text', async() => {
-    const {getByText, getByTestId, getByPlaceholderText, container} = render(<Select />);
-    const text = getByPlaceholderText('change text');
+    const {getByText, getByTestId, getByPlaceholderText, container, getByLabelText} = render(<Select />);
+    const input = getByLabelText('Change text');
 
-    text.value= 'input text';
-    Simulate.change(text);
+    input.value= 'input text';
+    Simulate.change(input);
     Simulate.click(getByText('Save'));
 
+    console.log('saved', getByTestId('saved').innerHTML);
     expect(getByTestId('saved')).toHaveTextContent('input text')
   })
 });
 ```
 
-We can see above that we use the helper `getByPlaceholderText` to get a reference to our input and we simply do `text.value = 'input text'` at that point. Thereafter we need to invoke `Simulate.change(text)` for the change to happen. After that we can assert on the results by typing `expect(getByTestId('saved')).toHaveTextContent('input text')`
+We can see above that we use the helper `getByLabelText` to get a reference to our input and we simply do `input.value = 'input text'` at that point. Thereafter we need to invoke `Simulate.change(input)` for the change to happen. After that we can assert on the results by typing `expect(getByTestId('saved')).toHaveTextContent('input text')`
 
 ### Dealing with asynchronous
 
@@ -317,11 +319,11 @@ import Select from '../Note';
 
 describe('Note', () => {
   it('save text', async() => {
-    const {getByText, getByTestId, getByPlaceholderText, container} = render(<Select />);
-    const text = getByPlaceholderText('change text');
+    const {getByText, getByTestId, getByPlaceholderText, container, getByLabelText} = render(<Select />);
+    const input = getByLabelText('Change text');
 
-    text.value= 'input text';
-    Simulate.change(text);
+    input.value= 'input text';
+    Simulate.change(input);
     Simulate.click(getByText('Save'));
 
     console.log('saved', getByTestId('saved').innerHTML);
@@ -334,8 +336,8 @@ describe('Note', () => {
     Simulate.click(getByText('Load'));
     await wait(() => getByTestId('data'))
     const data = getByTestId('data')
-    const elem = data.querySelector(".item");
-    expect(elem.innerHTML).toBe('test');
+    const elem = getByTestId('item');
+    expect(elem).toHaveTextContent('test');
   })
 
 });
