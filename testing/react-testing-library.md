@@ -171,7 +171,74 @@ describe('Todos', () => {
 
 Our last added test is using the `Simulate` helper to perform a click and we can see that we are using the `getByText` helper to find the button. Thereafter we again use the `container` to the `selected` CSS class. 
 
-## Asynchronous tests
+## Asynchronous tests and working with input
+We have so far shown you how to render a component, find the resulting elements and assert on them. We have also shown how you can carry out things like a click on a button. In this section we will show two things:
 
+- dealing with asynchronous actions
+- working with input
+
+We will build the following:
+
+- Note.js a component that allows us enter data and save down the results, it will also allow us to fetch data
+- `__tests__/Note.js`, the test file
+
+Let's have a look at the component:
+
+```js
+// Note.js
+import React from 'react';
+
+class Note extends React.Component {
+  state = {
+    content: '',
+    saved: '',
+  };
+
+  onChange = (evt) => {
+    this.setState({
+      content: evt.target.value,
+    });
+    console.log('updating content');
+  }
+
+  save = () => {
+    this.setState({
+      saved: `Saved: ${this.state.content}`,
+    });
+  }
+
+  load = () => {
+    var me = this;
+    setTimeout(() => {
+      me.setState({
+        data: [{ title: 'test' }, { title: 'test2' }]
+      })
+    }, 3000);
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        <input placeholder="change text" onChange={this.onChange} />
+        <div data-testid="saved">{this.state.saved}</div>
+        {this.state.data &&
+        <div data-testid="data">
+          {this.state.data.map(item => (
+            <div className="item" >{item.title}</div>
+          ))}
+        </div>
+        }
+        <div>
+          <button onClick={this.save}>Save</button>
+          <button onClick={this.load}>Load</button>
+        </div>
+      </React.Fragment>
+    );
+  }
+}
+
+export default Note;
+
+```
 
 
