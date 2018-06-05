@@ -4,6 +4,12 @@
 
 It's a lightweight solution for testing React components. It provides utility functions on top of `react-dom` and `react-dom/utils`. Your tests work on DOM nodes over React component instances. 
 
+It's easy to get started with you just need to install `react-testing-library`:
+
+```
+yarn add react-testing-library
+```
+
 ## Writing a test
 Let's look at a real scenario and see what we mean. We will create:
 
@@ -326,4 +332,15 @@ describe('Note', () => {
 ```
 
 Above we see the construct `await wait(() => getByTestId('data'))` that halts until the element is present. Thereafter we assert on the result.
+
+## Further reading
+There is a lot more to this library and you are encouraged to look at the 
+
+Official documentation at:
+[Repository](https://github.com/kentcdodds/react-testing-library)
+And a blog post by its creator Kent C Dodds
+[Blog post](https://blog.kentcdodds.com/introducing-the-react-testing-library-e3a274307e65)
+
+
+
 
