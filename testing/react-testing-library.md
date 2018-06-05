@@ -54,7 +54,7 @@ export default TodosContainer;
 Now to the test:
 
 ```js
-import {render, Simulate, wait} from 'react-testing-library'
+import {render, Simulate, wait} from 'react-testing-library';
 import React from 'react';
 import 'jest-dom/extend-expect'
 import Todos from '../Todos';
@@ -72,7 +72,20 @@ describe('Todos', () => {
   })
 
 });
-
-
 ```
+We can see from the above code that we are using some helpers from `react-testing-library`:
+- `render`, this will render our component
+- `Simulate`, this will help us trigger things like a `click` event or change the input data for example
+- `wait`, this allows us to wait for an element to appear
+
+Looking at the test itself we see that when we call `render` we get an object back that we do destructuring on:
+
+```js
+const {getByText, getByTestId, container} = render(<Todos todos={todos} />)
+```
+and we end up with the following helpers:
+- `getByText`, this grabs an element by it's text content
+- getByTestId, this grabs an element by  `data-testid`, so if you have an attribute on your element like so  `data-testid="saved` you would be querying it like so `getByTestId('saved')`
+- container
+get
 
