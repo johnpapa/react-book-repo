@@ -56,5 +56,12 @@ yarn storybook
 It will startup story book and we can navigate to `http://localhost:9000`. It will look like this:
 
 ![](/assets/Screen Shot 2018-06-06 at 14.23.34.png)
+
+Let's look at the code that produces this in `stories/index.js`. Every call `storiesOf('name of module', module)` produces a section. We can then chain a call to id `add('name of component variant', () => ())`. Now the `add` method is worth looking closer at:
+
+```js
+.add('with text', () => <Button onClick={action('clicked')}>Hello Button</Button>)
+``` 
+The second argument renders out a React component and we seem to be able to set whatever property we want in there. Let's try to create a component and add it to `stories/index.js` next.
 ## Add a story
 ## Improving - Dedicated story folders
