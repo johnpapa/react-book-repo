@@ -191,6 +191,44 @@ class CreateItem extends React.Component {
   }
 }
 ```
+So much for the create-item component, what about the list component, how does it listen to the store and how does it handle updates to the store?
+
+```js
+// list-component
+import { select, subscribe } from './store';
+
+class ListComponent extends React.Component {
+  componentDidMount() {
+    this.setState({
+      list: select((state) => state.list)
+    });
+    subscribe(this.update.bind(this));
+  }
+  
+  update = () => {
+    console.log('store is updated');
+    this.setState({
+      list: select((state) => state.list)
+    });
+  }
+}
+```
+We answered both those questions with the code above, we initially fetch the store value we care about in the `componentDidMount` like so:
+
+```js
+this.setState({
+  list: select((state) => state.list)
+});
+```
+we also listen to the store by calling `subscribe` and passing our `update` method like so:
+
+```js
+subscribe(this.update.bind(this));
+```
+lastly when `update` is invoked we make sure to reread the state slice we care about by calling it again, like so:
+
+```js
+```
 
 
 
