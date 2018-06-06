@@ -64,4 +64,80 @@ Let's look at the code that produces this in `stories/index.js`. Every call `sto
 ``` 
 The second argument renders out a React component and we seem to be able to set whatever property we want in there. Let's try to create a component and add it to `stories/index.js` next.
 ## Add a story
+Let's do the following:
+
+- create a `Todos.js` component
+- add an entry of that component to `stories/index.js`
+
+ First off the code for `Todos.js`:
+ 
+```
+// Todos.js
+import React from 'react';
+import styled from 'styled-components';
+
+const Todo = styled.div`
+  box-shadow: 0 0 5px grey;
+  padding: 10px;
+  margin-bottom: 10px;
+`;
+
+const Todos = ({ todos }) => (
+  <React.Fragment>
+    <h3>List of todos</h3>
+    {todos.map(t => <Todo key={t.title}>{t.title}</Todo>)}
+  </React.Fragment>
+);
+
+export default Todos;
+``` 
+Now let's add the entry to `stories/index.js`:
+
+```js
+import React from 'react';
+
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { linkTo } from '@storybook/addon-links';
+
+import { Button, Welcome } from '@storybook/react/demo';
+import Todos from '../Todos';
+
+import mocks from './mocks';
+
+storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
+
+storiesOf('Button', module)
+  .add('with text', () => <Button onClick={action('clicked')}>Hello Button</Button>)
+  .add('with some emoji', () => (
+    <Button onClick={action('clicked')}>
+      <span role="img" aria-label="so cool">
+        😀 😎 👍 💯
+      </span>
+    </Button>
+  ));
+
+storiesOf('Todos', module)
+  .add('with todos', () => <Todos todos={mocks.todos} />)
+```
+
+Let's highlight on our additions. First we import what we need:
+
+ ```js
+import Todos from '../Todos';
+import mocks from './mocks';
+ ``` 
+ 
+ The `mocks.js` is a file we created to supply our components with data. We chose to place it in a separate file so we don't clutter up `index.js`. The `mocks.js` is a very simple file looking like this:
+ 
+```js
+// stories/mocks.js
+const mocks = {
+  todos: [{ title: 'test' }, { title: 'test2' }]
+};
+
+export default mocks;
+```
+
+
 ## Improving - Dedicated story folders
