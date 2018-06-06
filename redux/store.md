@@ -147,7 +147,6 @@ const subscribe = (listener) => {
   listeners.push(listener);
 }
 
-
 ```
 
 
