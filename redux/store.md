@@ -79,5 +79,53 @@ select((state) => state.list) // returns the list part only
 select((state) => state.user) // returns the user part only
 ```  
 ## Notify listeners
+Last but not least we need a way to communicate that our state has changed. This is easily achieved by using letting a listener subscribe, like so:
+
+```
+let listeners = [];
+
+const subscribe = (listener) => {
+  listeners.push(listener);
+}
+```
+Then to notify all the listeners we need to call all these listeners when a change to our state happens, we need to place some code in the `dispatch`:
+
+```js
+const dispatch = (action) => {
+  state = calc(state, action);
+  listeners.forEach(l => l()); // calls all listeners
+}
+```
+
+Ok so the full code now looks like this:
+
+```js
+// store.js
+
+let state = {
+  list: [],
+  user: void 0
+};
+
+let listeners = [];
+
+const calc = (state, action) => {
+  return {
+    list: listReducer(state.list, action),
+    user: userReducer(state.user, action)
+  };
+}
+
+const dispatch = (action) => {
+  state = calc(state, action);
+  listeners.forEach(l => l()); // calls all listeners
+}
+
+const subscribe = (listener) => {
+  listeners.push(listener);
+}
+
+
+```
 
 
