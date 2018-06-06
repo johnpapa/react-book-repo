@@ -153,3 +153,80 @@ As you can see we set up the story and define a variant of that story by calling
 ![](/assets/Screen Shot 2018-06-06 at 14.46.52.png)
 
 ## Improving - Dedicated story folders
+Ok great now we know how to create our components and display them in a storybook. However your `storybook/index.js` might become quite cluttered so you may want to opt for a solution that scales better. Let's have a look `.storybook/config.js`:
+
+```
+import { configure } from '@storybook/react';
+
+function loadStories() {
+  require('../src/stories');
+}
+
+configure(loadStories, module);
+```
+The `loadStories` function allows us to add more entries in there, which is perfect. Let's do that:
+
+```js
+import { configure } from '@storybook/react';
+
+function loadStories() {
+  require('../src/stories');
+  require('../src/stories/common');
+}
+
+configure(loadStories, module);
+
+```
+As you can see we can now point out `../src/stories/common` as yet another place our stories can exist on. That directory now needs to consist of an `index.js` and we can write our stories per usual like so:
+
+```js
+// stories/common/index.js
+import React from 'react';
+
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import Button from '../../common/Button';
+
+storiesOf('Button', module)
+  .add('with text', () => <Button title={'title for a button'}>text</Button>)
+  .add('with markup', () => <Button title={'title for a button'}><h3>My button</h3><span>button text</span></Button>)
+
+```
+The component we render above has the following code:
+
+```js
+import React from 'react';
+import styled from 'styled-components';
+
+const InnerButton = styled.button`
+  padding: 20px;
+  box-shadow: 0 0 5px grey;
+  border-radius: 3px;
+  :focus {
+    border: solid 1px black;
+  }
+`;
+
+class Button extends React.Component {
+  render() {
+    return (
+      <InnerButton { ...this.props } >{this.props.children}</InnerButton>
+    );
+  }
+}
+
+export default Button;
+```
+
+Our styleguide now renders like so:
+
+![](/assets/Screen Shot 2018-06-06 at 15.17.02.png)
+and for the second button variant:
+![](/assets/Screen Shot 2018-06-06 at 15.17.11.png)
+
+So if you start to have components divided up into different directories it can be a good idea to bring that directory structure with you.
+
+## Further reading
+
+[Official docs](https://storybook.js.org/)
+[Great article on different style guide for React](https://www.nearform.com/blog/react-living-style-guides/)
