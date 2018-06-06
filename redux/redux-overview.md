@@ -23,3 +23,10 @@ We have our scenario and we are trying to define what should happen in what orde
 - A central store processes the message that leads to a change of its internal state
 - The central store then communicates out to all its listeners that the internal state has changed, one such listener is our list component
 
+Why is this called unidirecitonal? Well the data in this case is only flowing in one direction. We start with a user interaction and we end up with another UI component being updated. What about other scenarios such as fetching initial data to our list component? Well in this case we might have the following flow:
+
+- list component asks for data from the central store by sending it a message
+- central store in turn sends a message that leads to the data being fetched from an endpoint via AJAX
+- when the data arrives the state of the central store is changed and an event is emitted that a listener, in this case the list component is listening to
+
+As you can see we communicate with messages that ends up being interpreted and leads to a change of the state of our internal store. That change is broadcasted to a listener/s and the UI gets updated
