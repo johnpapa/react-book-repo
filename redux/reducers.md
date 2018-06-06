@@ -29,9 +29,7 @@ let state = reducer([], actionCreator('item1'));
 
 state = reducer([], actionCreator('item2'));
 // [{ title: 'item1' }, { title: 'item2' }]
-
 ```
-
 
 ## Reducer Types
 There are different types of re
