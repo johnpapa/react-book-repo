@@ -138,14 +138,19 @@ const calc = (state, action) => {
   };
 }
 
-const dispatch = (action) => {
+export const dispatch = (action) => {
   state = calc(state, action);
   listeners.forEach(l => l()); // calls all listeners
 }
 
-const subscribe = (listener) => {
+export const subscribe = (listener) => {
   listeners.push(listener);
 }
+
+export const select = (fn) => {
+  return fn(state);
+}
+
 ```
 
 ## Example
