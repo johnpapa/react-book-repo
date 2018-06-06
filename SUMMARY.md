@@ -54,21 +54,21 @@
 
 * [Redux - overview](redux/redux-overview.md)
 * [Actions](redux/actions.md)
-* Reducers
+* [Reducers](redux/reducers.md)
 * Store
 * Selectors
 * Container vs Presentational components
 * Add Redux to React
 * Handling side effects with Sagas
-* Redux Form
+* [Redux Form](redux/redux-form.md)
 
 ## MOBX
 
-* Observables
-* Computed variables
-* Reactions
+* [Observables](mobx/observables.md)
+* [Computed variables](mobx/computed-variables.md)
+* [Reactions](mobx/reactions.md)
 
 ## LIBRARIES
 
-* Styleguidist
+* storybook
 
