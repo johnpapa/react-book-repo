@@ -60,4 +60,6 @@ const dispatch = (action) => {
 }
 ```
 
+Now the above is the very engine in Redux. This is how we can send a message, have it processed via a reducer and finally the state changes accordingly. There are of course other things to this like the ability to select a slice of state and notify listeners. 
+
 
