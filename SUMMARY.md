@@ -55,7 +55,7 @@
 * [Redux - overview](redux/redux-overview.md)
 * [Actions](redux/actions.md)
 * [Reducers](redux/reducers.md)
-* Store
+* [Store](redux/store.md)
 * Selectors
 * Container vs Presentational components
 * Add Redux to React
