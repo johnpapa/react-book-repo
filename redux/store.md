@@ -60,6 +60,24 @@ const dispatch = (action) => {
 }
 ```
 
-Now the above is the very engine in Redux. This is how we can send a message, have it processed via a reducer and finally the state changes accordingly. There are of course other things to this like the ability to select a slice of state and notify listeners. 
+Now the above is the very engine in Redux. This is how we can send a message, have it processed via a reducer and finally the state changes accordingly. There are of course other things to this like:
+- ability to select a slice of state 
+- notify listeners. 
+
+## Select a slice of state
+A component is not going to be interested in the entire state object but merely a slice of it. To cater to this we need a select function that has the ability to select a slice of the object. That is quite simple thing to do so let's add that to our code:
+
+```js
+const select = (fn) => {
+  return fn(state);
+}
+```
+As you can see above we give it a parameter `fn` and end up return `fn(state)` and thereby we let the input parameter decide what slice of state it wants. Let's showcase how we can call the `select` method:
+
+```js
+select((state) => state.list) // returns the list part only
+select((state) => state.user) // returns the user part only
+```  
+## Notify listeners
 
 
