@@ -18,6 +18,19 @@ function reducer(state = [], action) {
 }
 ```
 
+Using the reducer is done by invoking it:
+
+```js
+let id = 1;
+const actionCreator = (title) =>  ({ type: 'CREATE_ITEM', payload: { id: counter++, title } })
+
+let state = reducer([], actionCreator('item1'));
+// [{ title: 'item1' }]
+
+state = reducer([], actionCreator('item2'));
+// [{ title: 'item1' }, { title: 'item2' }]
+
+```
 
 
 ## Reducer Types
