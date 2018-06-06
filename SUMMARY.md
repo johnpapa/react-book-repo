@@ -70,5 +70,5 @@
 
 ## LIBRARIES
 
-* storybook
+* [storybook](libraries/storybook.md)
 
