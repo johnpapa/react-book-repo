@@ -94,6 +94,8 @@ export default Todos;
 Now let's add the entry to `stories/index.js`:
 
 ```js
+// stories/index.js
+
 import React from 'react';
 
 import { storiesOf } from '@storybook/react';
@@ -139,5 +141,15 @@ const mocks = {
 export default mocks;
 ```
 
+Now back to our `index.js` file and let's look at the part where we set up our story:
+
+```js
+storiesOf('Todos', module)
+  .add('with todos', () => <Todos todos={mocks.todos} />)
+
+```
+As you can see we set up the story and define a variant of that story by calling `add`. Let's have a look at the result:
+
+![](/assets/Screen Shot 2018-06-06 at 14.46.52.png)
 
 ## Improving - Dedicated story folders
