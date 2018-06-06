@@ -34,6 +34,12 @@ state = reducer([], actionCreator('item2'));
 What we can see above is how we can use the reducer and take initial state, and apply an action to it. We also see how we can take an existing state and another action and simply create a new state which consists of the `old state + action`.
 
 ## Reducer Types
-There are different types of re
+There are different types of reducers. We have shown a list reducer so far but it is possible to define reducers for:
 
-## Slice of state
+- lists
+- objects
+- primitives
+
+
+
+
