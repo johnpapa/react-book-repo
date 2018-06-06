@@ -56,7 +56,7 @@
 * [Actions](redux/actions.md)
 * [Reducers](redux/reducers.md)
 * [Store](redux/store.md)
-* Container vs Presentational components
+* [Container vs Presentational components](redux/container-vs-presentational-components.md)
 * Add Redux to React
 * Handling side effects with Sagas
 * [Redux Form](redux/redux-form.md)

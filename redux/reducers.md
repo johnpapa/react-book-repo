@@ -40,6 +40,39 @@ There are different types of reducers. We have shown a list reducer so far but i
 - objects
 - primitives
 
+### Object reducer
+We have already showcase the list reducer so let's have a look at an object reducer.
+
+The aim of an object reducer is simply to either load the object or update parts of it, if we are editing it for example. Let's show some code:
+
+```js
+const reducer = (state = {}, action) => {
+  switch(action.type) {
+    case 'LOAD_ITEM':
+    case 'UPDATE_ITEM':
+      return { ...state, ...action.payload }
+    case 'REMOVE_ITEM':
+      return null;
+  }
+}
+```
+
+### Primitive reducer
+This is quite an easy one. It looks like this if we are dealing with an integer:
+
+```js
+const reducer = (state = 0, action) => {
+  switch(action.type) {
+    case 'INCREMENT':
+      return state + 1;
+    case 'DECREMENT':
+      return state -1;
+    default:
+      return state;
+  }
+}
+```
+
 
 
 
