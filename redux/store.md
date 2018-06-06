@@ -146,7 +146,51 @@ const dispatch = (action) => {
 const subscribe = (listener) => {
   listeners.push(listener);
 }
-
 ```
+
+## Example
+So far we have described how you can build a store from scratch. How do you use it in practice though?
+
+Imagine you have the following components:
+- create item component
+- list component
+
+When a `create item component` is create a new item, it needs to express this as an action and call `dispatch` on the store, like so:
+
+```js
+// create-item.js
+import { createItem } from './create-item';
+import { dispatch } from './store';
+
+class CreateItem extends React.Component {
+  state = {
+    content: ''
+  }
+
+  create() {
+  
+  }
+  
+  onChange = (evt) => {
+    this.setState({
+      content: evt.target.value
+    });
+  }
+  
+  onCreate = () => {
+    dispatch(createItem(this.state.content));
+  }
+  
+  render () {
+    return (
+      <React.Fragment>
+        <input onChange={onChange}>
+        <button onClick={onCreate}></button>
+      </React.Fragment>
+    );
+  }
+}
+```
+
 
 
