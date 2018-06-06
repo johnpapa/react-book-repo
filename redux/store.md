@@ -163,8 +163,12 @@ Imagine you have the following components:
 When a `create item component` is create a new item, it needs to express this as an action and call `dispatch` on the store, like so:
 
 ```js
+// create-action.js
+export const createItem = (item) => ({ type: 'CREATE_ITEM', payload: { title: item } })
+
+
 // create-item.js
-import { createItem } from './create-item';
+import { createItem } from './create-action';
 import { dispatch } from './store';
 
 class CreateItem extends React.Component {
@@ -228,7 +232,7 @@ class ListComponent extends React.Component {
     return (
       <React.Fragment>
         <h3>My list</h3>
-        {this.state.list.map(item => <div>{item}</div>)}
+        {this.state.list.map(item => <div>{item.title}</div>)}
       </React.Fragment>
     );
   }
