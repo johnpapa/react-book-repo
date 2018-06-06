@@ -184,13 +184,16 @@ class CreateItem extends React.Component {
   
   onCreate = () => {
     dispatch(createItem(this.state.content));
+    this.setState({
+      content: ''
+    })
   }
   
   render () {
     return (
       <React.Fragment>
         <input onChange={onChange}>
-        <button onClick={onCreate}></button>
+        <button onClick={onCreate}>Save</button>
       </React.Fragment>
     );
   }
