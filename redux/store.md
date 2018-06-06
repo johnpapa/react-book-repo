@@ -198,6 +198,10 @@ So much for the create-item component, what about the list component, how does i
 import { select, subscribe } from './store';
 
 class ListComponent extends React.Component {
+  state = {
+    list: []
+  }
+
   componentDidMount() {
     this.setState({
       list: select((state) => state.list)
@@ -210,6 +214,15 @@ class ListComponent extends React.Component {
     this.setState({
       list: select((state) => state.list)
     });
+  }
+  
+  render() {
+    return (
+      <React.Fragment>
+        <h3>My list</h3>
+        {this.state.list.map(item => <div>{item}</div>)}
+      </React.Fragment>
+    );
   }
 }
 ```
@@ -228,6 +241,9 @@ subscribe(this.update.bind(this));
 lastly when `update` is invoked we make sure to reread the state slice we care about by calling it again, like so:
 
 ```js
+this.setState({
+  list: select((state) => state.list)
+});
 ```
 
 
