@@ -335,7 +335,6 @@ describe('Note', () => {
 
     Simulate.click(getByText('Load'));
     await wait(() => getByTestId('data'))
-    const data = getByTestId('data')
     const elem = getByTestId('item');
     expect(elem).toHaveTextContent('test');
   })
