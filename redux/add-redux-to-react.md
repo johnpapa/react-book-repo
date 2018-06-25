@@ -128,7 +128,9 @@ registerServiceWorker();
 Now we have a complete setup but we want to be able to access data by talking to the store, same thing goes with if we want to alter data. The way we talk to the store is by introducing the concepts `container component` and `presentation component`.
 
 ### Container component
-A container component is a component is simply a component that *contains* the data and in this case has knowledge of Redux. A presentational component relies fully on its inputs wether it is about rendering data or invoking a method. Let's look at a non Redux example that shows this. First let's define the presentational components:
+A container component is simply a component that *contains* the data and in this case has knowledge of Redux. A presentational component relies fully on its inputs wether it is about rendering data or invoking a method. Let's look at a non Redux example that shows this. 
+
+First let's define the presentational components:
 
 ```js
 const PresentationComponent = ({ todos }) => (
@@ -149,7 +151,7 @@ As you can see above the are relying fully on input wether that input is pure da
 
 Next up let's define the a *container* component, the component that sits on data and behavior:
 
-```
+```js
 class ContainerComponent extends React.Component {
   state = {
     todos: [
@@ -179,6 +181,14 @@ class ContainerComponent extends React.Component {
     </React.Fragment>
   }
 }
+```
+Above you can see how we have a state and methods that we pass on to the components being rendered:
+
+```js
+<React.Fragment>
+  <PresentationComponent todos={this.state.todos} />
+  <PresentationComponentInput onChange={this.change} add={add} />
+</React.Fragment>
 ```
 
 
