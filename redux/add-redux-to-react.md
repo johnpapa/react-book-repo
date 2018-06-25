@@ -191,5 +191,118 @@ Above you can see how we have a state and methods that we pass on to the compone
 </React.Fragment>
 ```
 
+### Redux
+Ok, so we understand the basic idea. Applying this to Redux is about using a method called `connect` that helps us create a container components. Let's have a look what that looks like in code:
+
+```js
+const ListContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(List);
+```
+Above we can see how we invoke `connect` and we are able to create a `ListContainer` component. There are three things here we need to explain though, namely:
+
+```js
+- mapStateToProps, this is function that returns an object of store states our component should have access to
+- mapDispatchToProps, this is a function that returns an object with methods we should be able to call
+- List, a presentation component
+```
+
+Let's look at each concept in close detail
+
+#### mapStateToProps
+It's job is to decide what data from the store we want to provide to a presentation component. We only want a a slice of state, never the full application state. It for example makes sense for a list component to have access to a `list` state but not a `user` for example.
+
+```js
+const mapStateToProps = (state) => {
+  return {
+    items: state.list
+  };
+}
+```
+We can see above that we define a function that takes a `state` as parameter and ends up return an object. We can see that the returned object has a property `items` that gets its value from `state.list`, this means we are reading the `list` property from the store and it is being exposed as `items`. 
+
+#### mapDispatchToProps
+This is a function the produces an object, when invoked. Let's have a look at its implementation:
+
+```js
+const addItem = (item) => ({ type: 'CREATE_ITEM', payload: { title: item } });
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddItem: item => {
+      dispatch(addItem(item))
+    }
+  };
+}
+```
+Above we see that we take a `dispatch` method in. This method when called will allow us to dispatch actions that leads to the stores state being changed. We define a `onAddItem` method that when invoked will call on `addItem` method. It looks at first glance like we will add an item that is ultimately going to be added to a list in a store.
+
+#### List - presentation component
+The `List` components source code looks like this:
+
+```js
+import React from 'react';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
+
+import CreateItem from './CreateItem';
+
+const Item = styled.div`
+  box-shadow: 0 0 5px;
+  margin-bottom: 10px;
+  padding: 20px;
+`;
+
+const ItemsContainer = styled.div`
+  margin: 10px;
+`;
+
+const Items = ({ items }) => (
+  <ItemsContainer>
+    {items.map(item => <Item>{item.title}</Item>)}
+  </ItemsContainer>
+);
+
+const NoItems = () => (
+  <div>No items yet</div>
+);
+
+const List = ({ items, onAddItem }) => (
+  <React.Fragment>
+    <CreateItem onAddItem={onAddItem} />
+    {items.length === 0 ? <NoItems /> : <Items items={items} />}
+  </React.Fragment>
+);
+
+List.propTypes = {
+  items: PropTypes.array,
+};
+
+export default List;
+```
+
+Just focusing on the rendering part of this component we see that it renders a list of data but also have the ability to add an item:
+
+```js
+const List = ({ items, onAddItem }) => (
+  <React.Fragment>
+    <CreateItem onAddItem={onAddItem} />
+    {items.length === 0 ? <NoItems /> : <Items items={items} />}
+  </React.Fragment>
+);
+```
+What's interesting here is we see that it takes `items` and `onAddItem` as props. Now this is exactly what the `connect` method does for use when it glues together Redux container data/behaviour with a presentation component. Remember this from our container component:
+
+```js
+const ListContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(List);
+```
+The `items` property came from the object returned from `mapStateToProps` and `onAddItem` came from `mapDispatchToProps`. 
+
+## Summarising
+
 
 
