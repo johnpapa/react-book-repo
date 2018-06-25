@@ -157,13 +157,7 @@ sagaMiddleware.run(watchIncrementAsync)
 ```
 Without this call, nothing will work, so don't forget it :)
 
-## More advanced Scenarios
-Ok great, so we are able to create a Saga for every AJAX/async scenario we can dream up in a normal CRUD, Create Read Update, scenario. What about other scenarios, such as cascading calls. Let's look at a quite common scenario such as the first time we start up an app. It's quite common that starting up an app is done when we login followed by fetching some data and once data is fetched we can fetch some more data. Point is we have a series of depending calls that depends on each other to finish, like so:
 
-```js
-login()
-.then(getOrdersByUser)
-```
 
 
 
