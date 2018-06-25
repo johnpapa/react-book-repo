@@ -238,10 +238,46 @@ const mapDispatchToProps = dispatch => {
 ```
 Above we see that we take a `dispatch` method in. This method when called will allow us to dispatch actions that leads to the stores state being changed. We define a `onAddItem` method that when invoked will call on `addItem` method. It looks at first glance like we will add an item that is ultimately going to be added to a list in a store.
 
+#### ListContainer - container component
+The full code for a container component therefore looks like this:
+
+```js
+import React from 'react';
+import {connect} from 'react-redux';
+
+import List from '../components/List';
+
+const addItem = (item) => ({ type: 'CREATE_ITEM', payload: { title: item } });
+
+const mapStateToProps = (state) => {
+  return {
+    items: state.list
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onAddItem: item => {
+      dispatch(addItem(item))
+    }
+  };
+}
+
+const ListContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(List);
+
+export default ListContainer;
+
+```
+
 #### List - presentation component
 The `List` components source code looks like this:
 
 ```js
+// components/List.js
+
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -303,6 +339,7 @@ const ListContainer = connect(
 The `items` property came from the object returned from `mapStateToProps` and `onAddItem` came from `mapDispatchToProps`. 
 
 ## Summarising
+Your app React/Redux is just more of the same. You will have a number of container components and a number of presentation components and the `connect` method is how you ensure the presentation component renders data and is able to invoke a method that leads to an action being dispatched and ultimately changes the stores state.
 
 
 
