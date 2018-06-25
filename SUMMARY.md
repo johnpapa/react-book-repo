@@ -58,7 +58,7 @@
 * [Store](redux/store.md)
 * [Container vs Presentational components](redux/container-vs-presentational-components.md)
 * [Add Redux to React](redux/add-redux-to-react.md)
-* Handling side effects with Sagas
+* [Handling side effects with Sagas](redux/handling-side-effects-with-sagas.md)
 * [Redux Form](redux/redux-form.md)
 
 ## MOBX
