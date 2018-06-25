@@ -49,4 +49,122 @@ Next step is about telling Redux we want to use Sagas. Sagas are a so called mid
 - create a saga
 - run a saga
 
+```js
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
+import { watchIncrementAsync } from './sagas';
+```
+Above we have imported `applyMiddleware` that we will need to register Sagas as a middleware. Next thing we imported was `createSagaMiddleware` that we will use to create the middleware. Lastly we import `watchIncrementAsync` which is simply our own written Saga that intercepts a specific dispatch action of our choosing and carries out asynchronous work.
+
+Next step is creating the middleware and registering it with Redux, like so:
+
+```js
+const sagaMiddleware = createSagaMiddleware();
+const store = createStore(
+  app,
+  applyMiddleware(sagaMiddleware)
+)
+```
+As you can see we now give `createStore` a second parameter instead of just the root reducer. That second parameter instructs Redux to run Sagas as a middleware.
+
+## Writing a Saga
+We have one bit of set up left which is:
+- creating our saga
+- instruct our Saga to run, so it actively listens
+
+For now we will create our handwritten Sagas in a file called `sagas.js` but as our project grows we will need to break it down in many small files to make it maintable:
+
+```js
+// sagas.js - excerpt
+
+import { delay } from 'redux-saga'
+import { put, takeEvery } from 'redux-saga/effects'
+```
+Above we add the needed imports in the form `delay` and `put` and `takeEvery`:
+- `delay`, this is really just a utility function that resolves a promise after x numver of milliseconds
+- `put`, this is pretty much the *dispatch* of Sagas, you add an action as input parameter to it.
+- `takeEvery`, this listens to a specific action type and runs a generator function in response to a specific action occurring
+
+### Approach
+Let's take a step back and think about what we are about to do. What we wan't to do and what Sagas promise to help us with is to clean up the flow a bit when dealing with asynchronous actions. To accomplish that a Saga has the following data flow to it:
+- listen to a specific action type
+- run a generator function in response to said action type
+- carry out asynchronous work in generator function
+- end generator function by calling `put` that dispatches an action and thereby leaves back control to Redux. 
+
+Let's build a Saga with that flow in mind. Let's take something dead simple like incrementing a number. I need you to imagine that this performs an AJAX request and when its done resolves a Promise. Let's start with step one though, listening to a specific action:
+
+```js
+// sagas.js - excerpt
+export function* watchIncrementAsync() {
+  console.log("I'm hit first");
+  yield takeEvery('INCREMENT_ASYNC', incrementAsync)
+
+}
+```
+Above we define the function `watchIncrementAsync` and we see that it calls `takeEvery` on the action type `INCREMENT_ASYNC`. The second parameter of the function says what function it should run in the response to this action occurring, namely `incrementAsync`.  The above is also called a *watcher* function. 
+
+Next step is about us creating and defining the function `incrementAsync`, so let's do that next:
+
+```js
+// sagas.js - excerpt
+
+export function* incrementAsync() {
+  console.log("Then me - do async work here...");
+  yield delay(1000)
+  console.log('Done with async work, dispatch data');
+  yield put({ type: 'INCREMENT' })
+}
+```
+We can see above that the first thing we do is to call `yield delay(1000)`, think of this as writing:
+
+```js
+await fetch(url);
+```
+What we mean by that is that this is the point where we should perform an AJAX call, instead of writing `await` we use `yield` which is the corresponding keyword for generators. Last thing to happen in this function is us calling `put` which dispatches an action and thereby leaves control back to Redux. The full file looks like this:
+
+```js
+import { delay } from 'redux-saga'
+import { put, takeEvery } from 'redux-saga/effects'
+
+
+// Our worker Saga: will perform the async increment task
+export function* incrementAsync() {
+  console.log("Then me - do async work here...");
+  yield delay(1000)
+  console.log('Done with async work, dispatch data');
+  yield put({ type: 'INCREMENT' })
+}
+
+// Our watcher Saga: spawn a new incrementAsync task on each INCREMENT_ASYNC
+export function* watchIncrementAsync() {
+  console.log("I'm hit first");
+  yield takeEvery('INCREMENT_ASYNC', incrementAsync)
+
+}
+```
+As you can see above there isn't much to it. Let's repeat again the steps we need to take for every Saga we write:
+
+- define a watcher function / listener that listens to a specific action
+- define a generator function, also called a *worker saga* that performs AJAX operations or some other asynchronous work and end it all with a call to `put` to relinquish control.
+
+### Run the Saga
+We have forgotten a little thing which is triggering the Saga to start watching. We need to head back to our `index.js` file and do that:
+
+```js
+// index.js - excerpt
+sagaMiddleware.run(watchIncrementAsync)
+```
+Without this call, nothing will work, so don't forget it :)
+
+## More advanced Scenarios
+Ok great, so we are able to create a Saga for every AJAX/async scenario we can dream up in a normal CRUD, Create Read Update, scenario. What about other scenarios, such as cascading calls. Let's look at a quite common scenario such as the first time we start up an app. It's quite common that starting up an app is done when we login followed by fetching some data and once data is fetched we can fetch some more data. Point is we have a series of depending calls that depends on each other to finish, like so:
+
+```js
+login()
+.then(getOrdersByUser)
+```
+
+
+
 
