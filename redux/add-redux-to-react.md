@@ -376,7 +376,7 @@ Our container component knows how to grab data from the store but also how to in
 Your app React/Redux is just more of the same. You will have a number of container components and a number of presentation components and the `connect` method is how you ensure the presentation component renders data and is able to invoke a method that leads to an action being dispatched and ultimately changes the stores state.
 
 To see a fully working example of what's been described in this chapter please have a look at this repo:
-(React Redux)[https://github.com/softchris/react-book/tree/master/Redux-Chapter/redux-demo]
+[React Redux](https://github.com/softchris/react-book/tree/master/Redux-Chapter/redux-demo)
 
 
 
