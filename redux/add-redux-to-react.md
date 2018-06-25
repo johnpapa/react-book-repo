@@ -338,8 +338,45 @@ const ListContainer = connect(
 ```
 The `items` property came from the object returned from `mapStateToProps` and `onAddItem` came from `mapDispatchToProps`. 
 
+#### Make it work
+What you end up rendering is container components like so:
+
+```js
+// App.js
+
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+import ListContainer from './containers/ListContainer';
+
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Welcome to React</h1>
+        </header>
+        <ListContainer />
+      </div>
+    );
+  }
+}
+
+export default App;
+```
+Above we see how we render:
+
+```js
+<ListContainer />
+```
+Our container component knows how to grab data from the store but also how to invoke functions that adds/changes store data.
+
 ## Summarising
 Your app React/Redux is just more of the same. You will have a number of container components and a number of presentation components and the `connect` method is how you ensure the presentation component renders data and is able to invoke a method that leads to an action being dispatched and ultimately changes the stores state.
+
+To see a fully working example of what's been described in this chapter please have a look at this repo:
+(React Redux)[https://github.com/softchris/react-book/tree/master/Redux-Chapter/redux-demo]
 
 
 
