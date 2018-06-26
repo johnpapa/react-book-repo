@@ -25,7 +25,7 @@ We need to do the following to make it work:
 
 ### Creating a store
 
-Creating a store is about creating the needed reducers use a few helper functions to tell Redux about it. Let's have a look at what creating the reducers might look like:
+Creating a store is about creating the needed reducers, use a few helper functions and tell Redux about it. Let's have a look at what creating the reducers might look like:
 
 ```js
 // store.js
@@ -49,10 +49,10 @@ const store = combineReducers({
 export default store;
 ```
 
-Above we have only defined one reducer, in the same file as `store.js` no less. Normally we would define one reducer per file and have them imported into `store.js`. Now we have everything defined in one file to make it easy to understand what is going on. One thing worth noting is our usage of the helper function `combineReducers`. This is the equivalent of writing:
+Above we have only defined one reducer, in the same file as `store.js` no less. Normally we would define one reducer per file and have them imported into `store.js`. Now we have everything defined in one file to make it easy to understand, what is going on. One thing worth noting is our usage of the helper function `combineReducers`. This is the equivalent of writing:
 
 ```js
-calc = (state, action) => {
+const calc = (state, action) => {
   return {
     list: listReducer(state.list, action)
   }
@@ -63,9 +63,10 @@ It's not an exact match but it is pretty much what goes on internally in `combin
 
 ### Expose the store via a provider
 
-Next step is to wire everything up so we need to go to our `index.js` file and import our store expose it using a provider. We need to perform the following steps:
-- import `createStore` and invoke it to create a store instance
-- add the store to a Provider
+Next step is to wire everything up so we need to go to our `index.js` file and import our store and expose it using a provider. We need to perform the following steps:
+
+* import `createStore` and invoke it to create a store instance
+* add the store to a Provider
 
 First thing we do is therefore:
 
@@ -76,6 +77,7 @@ import app from './store';
 
 const store = createStore(app);
 ```
+
 Next step is to wrap our root component `App` in a `Provider` and set its `store` property to our newly created store, like so:
 
 ```js
@@ -88,9 +90,9 @@ ReactDOM.render(
 document.getElementById('root'));
 ```
 
+#### Add initial state
 
-#### Add initial state
-We can give our store an initial value, maybe there is some starter data that our app needs, we can do so by calling `dispatch` on our store instance like so:
+We can give our store an initial value, maybe there is some starter data that our app needs. Initial value is added by calling `dispatch` on our store instance like so:
 
 ```js
 // index.js - excerpt
@@ -99,6 +101,7 @@ store.dispatch({ type: 'CREATE_ITEM', payload: { title: 'first item' } });
 ```
 
 #### Full code
+
 The full code with all the needed imports and calls looks like this:
 
 ```js
@@ -124,11 +127,13 @@ document.getElementById('root'));
 registerServiceWorker();
 ```
 
-## Accessing and changing data
+## Accessing and changing data
+
 Now we have a complete setup but we want to be able to access data by talking to the store, same thing goes with if we want to alter data. The way we talk to the store is by introducing the concepts `container component` and `presentation component`.
 
-### Container component
-A container component is simply a component that *contains* the data and in this case has knowledge of Redux. A presentational component relies fully on its inputs wether it is about rendering data or invoking a method. Let's look at a non Redux example that shows this. 
+### Container component
+
+A container component is simply a component that _contains_ the data and in this case has knowledge of Redux. A presentational component relies fully on its inputs wether it is about rendering data or invoking a method. Let's look at a non Redux example that shows this.
 
 First let's define the presentational components:
 
@@ -147,9 +152,10 @@ const PresentationComponentInput = ({ add, onChange }) => (
   </div>
 );
 ```
-As you can see above the are relying fully on input wether that input is pure data to be rendered or functions to be invoked.
 
-Next up let's define the a *container* component, the component that sits on data and behavior:
+As you can see above the components are relying fully on input wether that input is pure data to be rendered or functions to be invoked.
+
+Next up let's define a _container_ component, the component that sits on data and behavior:
 
 ```js
 class ContainerComponent extends React.Component {
@@ -160,20 +166,20 @@ class ContainerComponent extends React.Component {
     ],
     newItem
   }
-  
+
   change = (ev) => {
     this.setState({
       newItem: ev.target.value, 
     })
   }
-  
+
   add = (todo) => {
     this.setState({
       [ ...todos, { title: todo }],
       newItem: ''
     });
   }
-  
+
   render() {
     <React.Fragment>
       <PresentationComponent todos={this.state.todos} />
@@ -182,6 +188,7 @@ class ContainerComponent extends React.Component {
   }
 }
 ```
+
 Above you can see how we have a state and methods that we pass on to the components being rendered:
 
 ```js
@@ -192,7 +199,8 @@ Above you can see how we have a state and methods that we pass on to the compone
 ```
 
 ### Redux
-Ok, so we understand the basic idea. Applying this to Redux is about using a method called `connect` that helps us create a container components. Let's have a look what that looks like in code:
+
+Ok, so we understand the basic idea. Applying this to Redux is about using a method called `connect` that helps us create container components. Let's have a look what that looks like in code:
 
 ```js
 const ListContainer = connect(
@@ -200,17 +208,17 @@ const ListContainer = connect(
   mapDispatchToProps
 )(List);
 ```
+
 Above we can see how we invoke `connect` and we are able to create a `ListContainer` component. There are three things here we need to explain though, namely:
 
-```js
-- mapStateToProps, this is function that returns an object of store states our component should have access to
-- mapDispatchToProps, this is a function that returns an object with methods we should be able to call
-- List, a presentation component
-```
+* `mapStateToProps`, this is function that returns an object of store states our component should have access to
+* `mapDispatchToProps`, this is a function that returns an object with methods we should be able to call
+* `List`, a presentation component
 
 Let's look at each concept in close detail
 
 #### mapStateToProps
+
 It's job is to decide what data from the store we want to provide to a presentation component. We only want a a slice of state, never the full application state. It for example makes sense for a list component to have access to a `list` state but not a `user` for example.
 
 ```js
@@ -220,9 +228,11 @@ const mapStateToProps = (state) => {
   };
 }
 ```
-We can see above that we define a function that takes a `state` as parameter and ends up return an object. We can see that the returned object has a property `items` that gets its value from `state.list`, this means we are reading the `list` property from the store and it is being exposed as `items`. 
+
+We can see above that we define a function that takes a `state` as parameter and ends up returning an object. We can see that the returned object has a property `items` that gets its value from `state.list`, this means we are reading the `list` property from the store and it is being exposed as `items`.
 
 #### mapDispatchToProps
+
 This is a function the produces an object, when invoked. Let's have a look at its implementation:
 
 ```js
@@ -236,9 +246,11 @@ const mapDispatchToProps = dispatch => {
   };
 }
 ```
+
 Above we see that we take a `dispatch` method in. This method when called will allow us to dispatch actions that leads to the stores state being changed. We define a `onAddItem` method that when invoked will call on `addItem` method. It looks at first glance like we will add an item that is ultimately going to be added to a list in a store.
 
 #### ListContainer - container component
+
 The full code for a container component therefore looks like this:
 
 ```js
@@ -269,10 +281,10 @@ const ListContainer = connect(
 )(List);
 
 export default ListContainer;
-
 ```
 
 #### List - presentation component
+
 The `List` components source code looks like this:
 
 ```js
@@ -328,7 +340,8 @@ const List = ({ items, onAddItem }) => (
   </React.Fragment>
 );
 ```
-What's interesting here is we see that it takes `items` and `onAddItem` as props. Now this is exactly what the `connect` method does for use when it glues together Redux container data/behaviour with a presentation component. Remember this from our container component:
+
+What's interesting here is we see that it takes `items` and `onAddItem` as `props`. Now this is exactly what the `connect` method does for us when it glues together Redux container data/behaviour with a presentation component. Remember this from our container component:
 
 ```js
 const ListContainer = connect(
@@ -336,9 +349,11 @@ const ListContainer = connect(
   mapDispatchToProps
 )(List);
 ```
-The `items` property came from the object returned from `mapStateToProps` and `onAddItem` came from `mapDispatchToProps`. 
+
+The `items` property came from the object returned from `mapStateToProps` and `onAddItem` came from `mapDispatchToProps`.
 
 #### Make it work
+
 What you end up rendering is container components like so:
 
 ```js
@@ -365,18 +380,19 @@ class App extends Component {
 
 export default App;
 ```
+
 Above we see how we render:
 
 ```js
 <ListContainer />
 ```
+
 Our container component knows how to grab data from the store but also how to invoke functions that adds/changes store data.
 
 ## Summarising
+
 Your app React/Redux is just more of the same. You will have a number of container components and a number of presentation components and the `connect` method is how you ensure the presentation component renders data and is able to invoke a method that leads to an action being dispatched and ultimately changes the stores state.
 
-To see a fully working example of what's been described in this chapter please have a look at this repo:
+To see a fully working example of what's been described in this chapter please have a look at this repo:  
 [React Redux](https://github.com/softchris/react-book/tree/master/Redux-Chapter/redux-demo)
-
-
 
