@@ -249,20 +249,38 @@ export default TodoForm;
 ```
 We have omitted the form definition above to make it easier to see what we are doing. The change consists of digging out `pristine`, `reset` and `submitting` from `props`. Now let's add them to our form markup. Where should we add them though? Well we can `pristine` and `submitting` on our `button` and disable the button if either of those properties are true. It really makes no sense to allow a submit button to be pushed in the middle of submitting or when the user hasn't even interacted with the form. Our markup therefore now looks like so:
 
-```
+```html
 // TodoForm.js - excerpt
 <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">Title</label>
-          <Field name="title" component="input" type="text"/>
-        </div>
-        <div>
-          <label htmlFor="email">Email</label>
-          <Field name="email" component="input" type="email"/>
-        </div>
-        <button disabled={ pristine || submitting } type="submit">Submit</button>
-      </form>
-
+  <div>
+    <label htmlFor="title">Title</label>
+    <Field name="title" component="input" type="text"/>
+  </div>
+  <div>
+    <label htmlFor="email">Email</label>
+    <Field name="email" component="input" type="email"/>
+  </div>
+  <button disabled={ pristine || submitting } type="submit">Submit</button>
+</form>
 ``` 
+Especially look at the following:
 
+```html
+<button disabled={ pristine || submitting } type="submit">Submit</button>
+```
+
+What about our last property, `reset`. Well this is a functionality that we can assign to a button, like so:
+
+```js
+<button onClick={reset} disabled={pristine}>
+Reset
+</button>
+```
+It makes sense to add the `pristine` condition to its `disabled` attribute as there is no point resetting a form that hasn't been interacted with. Our form with some inputs now looks like this:
+
+![](/assets/Screen Shot 2018-06-27 at 14.23.40.png)
+
+Because we started to interact with the form you can see that the reset button is enabled. Pressing reset button however leads to this:
+
+![](/assets/Screen Shot 2018-06-27 at 14.23.49.png)
 
