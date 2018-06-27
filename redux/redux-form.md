@@ -104,5 +104,119 @@ and `formReducer` comes from `redux-form` and is something we import, like so:
 import { reducer as formReducer } from 'redux-form'
 ```
 
+That concludes the set up we need to do, onwards to create a form component in our next section.
+
+## Your first redux-form instance
+Because this is Redux it means that we need to create the following:
+- a container component
+- a presentation component
+
+There is a difference though, instead of using a `connect` function, to create our container component, we will be using a function called `reduxForm` to achieve it. Let's create a simple form and turn it into a `redux-form`:
+
+```js
+// TodoForm.js - excerpt
+
+import { Field, reduxForm } from 'redux-form';
+
+class TodoForm extends Component {
+  render() {
+    const { handleSubmit } = this.props;
+    return (
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="title">Title</label>
+          <Field name="title" component="input" type="text"/>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    );
+  }
+}
+```
+Ok, so now we have our presentation form and as you can see above we are passing a `handleSubmit` function through our `props`. Another thing is the usage of `Field` component that is an abstraction over any type of input that we want to create. In this case we use to create a normal `input` tag but it can be made to represent any type of form field.
+
+Let's turn into a container component. We do that by simply calling `reduxForm`, like so:
+
+```js
+// TodoForm.js - excerpt
+
+import { Field, reduxForm } from 'redux-form';
+
+TodoForm = reduxForm({
+  form: 'todo' // a unique name for this form
+})(TodoForm);
+```
+Aa you can see above we are calling `reduxForm` with an object that has the property `form` that needs to have a unique value, so we give it the value `todo`. This is so our store can differ between different forms when tracking its values. Let's first have a look at the full file `TodoForm.js` before putting it in use:
+
+```js
+// TodoForm.js
+
+import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
+
+class TodoForm extends Component {
+  render() {
+    const { handleSubmit } = this.props;
+    return (
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="title">Title</label>
+          <Field name="title" component="input" type="text"/>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    );
+  }
+}
+
+// Decorate the form component
+TodoForm = reduxForm({
+  form: 'todo' // a unique name for this form
+})(TodoForm);
+
+export default TodoForm;
+``` 
+
+At this point let's put this in use. We will create a TodoPage component like so:
+
+```
+// TodoPage.js
+
+import React from 'react';
+import TodoForm from './containers/TodoForm';
+
+class TodoPage extends React.Component {
+  handle = (values) => {
+    // Do something with the form values
+    console.log(values);
+  }
+  render() {
+    return (
+      <TodoForm onSubmit={this.handle} />
+    );
+  }
+}
+
+export default TodoPage;
+```
+
+What we can see above is how we render out the `TodoForm` component and we also assign a function to its property `onSubmit`. Let's have a closer look at the `handle` method of our component:
+
+```js
+// TodoPage.js - excerpt
+
+handle = (values) => {
+  // Do something with the form values
+  console.log(values);
+}
+```
+Worth noting is how our input is the paraneter `values` that is an object representing our form looking like so:
+
+```js
+// values: { title: 'the value you typed' }
+```
+This is where `redux-form` has done its magic, in a normal form the input parameter on an `onSubmit` for a form would be an event instead.  
+
+
 
 
