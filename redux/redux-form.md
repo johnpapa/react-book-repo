@@ -217,6 +217,52 @@ Worth noting is how our input is the paraneter `values` that is an object repres
 ```
 This is where `redux-form` has done its magic, in a normal form the input parameter on an `onSubmit` for a form would be an event instead.  
 
+## A more advanced example
+Ok, so now you know how to get things set up and have created your first form. This library comes pack with useful functionality so let's have a look at what you can do more.
 
+Let's look at the following properties:
+
+- pristine, boolean saying where we interacted with the form at all 
+- reset, function that allows us to reset the form to its previous state 
+- submitting, boolean that determines wether we are submitting
+
+Now back to our `TodoForm.js`, we will try to enhance it a little bit by adding the above properties:
+
+```js
+// TodoForm.js
+import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
+
+class TodoForm extends Component {
+  render() {
+    const { handleSubmit, pristine, reset, submitting } = this.props;
+    // rest of the form definition
+  }
+}
+
+// Decorate the form component
+TodoForm = reduxForm({
+  form: 'todo' // a unique name for this form
+})(TodoForm);
+
+export default TodoForm;
+```
+We have omitted the form definition above to make it easier to see what we are doing. The change consists of digging out `pristine`, `reset` and `submitting` from `props`. Now let's add them to our form markup. Where should we add them though? Well we can `pristine` and `submitting` on our `button` and disable the button if either of those properties are true. It really makes no sense to allow a submit button to be pushed in the middle of submitting or when the user hasn't even interacted with the form. Our markup therefore now looks like so:
+
+```
+// TodoForm.js - excerpt
+<form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="title">Title</label>
+          <Field name="title" component="input" type="text"/>
+        </div>
+        <div>
+          <label htmlFor="email">Email</label>
+          <Field name="email" component="input" type="email"/>
+        </div>
+        <button disabled={ pristine || submitting } type="submit">Submit</button>
+      </form>
+
+``` 
 
 
