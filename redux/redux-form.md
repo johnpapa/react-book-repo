@@ -284,3 +284,91 @@ Because we started to interact with the form you can see that the reset button i
 
 ![](/assets/Screen Shot 2018-06-27 at 14.23.49.png)
 
+## Validating the form
+
+Ok so now we know how to set things up, create a form with input fields and even check things like `pristine` and so on. What about validation, validation is usually the topic where we spend the most time implementing? Good news is that validation is pretty simple. It's as simple as:
+- writing a validation function, and tell redux-form about it
+- customize the rendering of your input field to show validation errors, if any
+
+### Writing a validation function
+Let's revisit our `TodoForm.js` file. We need to do the following for this to work:
+
+ - provide a property `validate` to the object you give to `reduxForm`, this property should point to a validation function that you need to write
+ - define a custom input control where you are able to show your input as well as errors, if there are any
+ 
+Let's start off with the setup:
+
+```js
+// TodoForm.js - excerpt
+
+TodoForm = reduxForm({
+  form: 'todo',
+  validate
+})(TodoForm);
+``` 
+As you can see above we are adding the property `validate` that points to a function `validate` that we have yet to specify.
+> Remember validate: validate can be written as validate in ES6
+
+Next step is defining the `validate` function which we can do like so:
+
+```js
+const validate = values => {
+}
+```
+Now what? Well this function is expected to return a dictionary of your errors. The input parameter `values` contain all the field values so if you have a field `title`, `values` will contain:
+
+```
+// { title: 'your entered value' }
+```
+Next up is therefore to implement the function `validate`:
+
+```js
+const validate = values => {
+  const errors = {};
+  
+  if (!values.title) {
+    errors.title = 'title must be entered';
+  }
+  
+  return errors;
+}
+```
+Above we have now defined the `validate` function. We go through the `values` input parameter which is an object containing all of our field values. If we find that a certain values isn't what it should be like:
+- not existing
+- not conforming to a pattern
+then we create an entry in the dictionary `errors` with an error message. The method `validate` will be invoked on each `keyup` event. Ok now we have everything set up and we are ready to move on to the next bit which is how do we display errors?
+
+### Customize an input
+We have been using `Field` as the component that represents an input. So far we have set an attribute `component` like so:
+
+```html
+<Field name="title" component="input" />
+```
+We can give `component` a function as an argument instead of a string. This means that we decide what gets rendered. Let's specify such a function:
+
+```js
+const renderField = ({
+  input,
+  label,
+  type,
+  meta: { touched, error }
+}) => {
+  return (
+    <div>
+      <label>{label}</label>
+      <div>
+        <input {...input} placeholder={label} type={type} />
+        {touched &&
+          ((error && <Error>{error}</Error>))}
+      </div>
+    </div>
+  )
+}
+```
+What we see above is that `renderField` is function that takes an object as a parameter and expects us to return a markup. Looking a little deeper at the input parameter we see that we have the following interesting bits:
+- **input**, this is our input value
+- **label**, this is a text label
+- **type**, the type of input, given the value of this we an choose to render different types of input components
+- **meta**, this is an object containing interesting information on the state of our input, if it has been interacted with, if it has an error and so on
+
+
