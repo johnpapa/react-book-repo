@@ -173,3 +173,9 @@ sagaMiddleware.run(watchIncrementAsync)
 
 Without this call, nothing will work, so don't forget it :\)
 
+## Further reading
+
+There is a lot more to Sagas, have a read at the official docs [Official docs](https://redux-saga.js.org/docs/introduction/)
+
+
+
