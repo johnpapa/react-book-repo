@@ -1,9 +1,8 @@
 # Summary
 
-* [Introduction](README.md)
-
 ## BASICS
 
+* [Introduction](README.md)
 * [Building blocks](building-blocks.md)
 * [JSX](jsx.md)
 * [Set up](set-up.md)
@@ -38,9 +37,12 @@
 
 ## ADVANCED
 
-* [Component Patterns](advanced/component-patterns.md)
 * [DataContext API](advanced/datacontext-api.md)
 * [Decorators](advanced/decorators.md)
+
+## PATTERNS
+
+* [Render props](patterns/render-props.md)
 
 ## TESTING
 
