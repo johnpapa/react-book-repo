@@ -171,10 +171,47 @@ We have forgotten a little thing which is triggering the Saga to start watching.
 sagaMiddleware.run(watchIncrementAsync)
 ```
 
-### Using it in the app
-TODO
-
 Without this call, nothing will work, so don't forget it :\)
+
+### Using it in the app
+Using this in the app is about the following:
+- create a container component
+- dispatch an action that targets `INCREMENT_ASYNC`
+
+Let's create that container component:
+
+```js
+// IncrementContainer.js
+
+import React from 'react';
+import {connect} from 'react-redux';
+
+import Increment from '../components/Increment';
+
+const increment = () => ({ type: 'INCREMENT_ASYNC' });
+
+const mapStateToProps = (state) => {
+  return {
+    value: state.value
+  };
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    increment: () => {
+      dispatch(increment())
+    }
+  };
+}
+
+const IncrementContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Increment);
+
+export default IncrementContainer;
+```
+We can see above how we create the container component `IncrementContainer` by using the presentation component `Increment` and augmenting it with the method `increment` and the state `value`. We also see that upon invoking `increment()` we dispatch the action of type `INCREMENT_ASYNC`. 
 
 ## Further reading
 
