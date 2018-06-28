@@ -213,6 +213,23 @@ export default IncrementContainer;
 ```
 We can see above how we create the container component `IncrementContainer` by using the presentation component `Increment` and augmenting it with the method `increment` and the state `value`. We also see that upon invoking `increment()` we dispatch the action of type `INCREMENT_ASYNC`. 
 
+For the presentation component we just need to wire up the `increment` method to a button so we can invoke the method and thereby dispatch the action so our Saga will be targeted. Let's define the presentation component:
+
+```js
+// Increment.js
+
+import React from 'react';
+
+const Increment = ({ value, increment }) => (
+  <div>
+    Value: {value} &nbsp;
+    <button onClick={increment}>Increment</button>
+  </div>
+);
+
+export default Increment;
+```
+
 ## Further reading
 
 There is a lot more to Sagas, have a read at the official docs [Official docs](https://redux-saga.js.org/docs/introduction/)
