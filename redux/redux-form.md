@@ -492,7 +492,9 @@ TodoForm = reduxForm({
 })(TodoForm);
 
 export default TodoForm;
-
 ```
+
+## Further reading
+There is a lot more to this wonderful library. Have a look at the official docs for more advanced scenarios [Official docs](https://redux-form.com/7.4.2/)
 
 
