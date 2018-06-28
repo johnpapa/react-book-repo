@@ -89,9 +89,9 @@ import { put, takeEvery } from 'redux-saga/effects'
 
 Above we add the needed imports in the form `delay` and `put` and `takeEvery`:
 
-* `delay`, this is really just a utility function that resolves a promise after x numver of milliseconds
-* `put`, this is pretty much the _dispatch_ of Sagas, you add an action as input parameter to it.
-* `takeEvery`, this listens to a specific action type and runs a generator function in response to a specific action occurring
+* **delay**, this is really just a utility function that resolves a promise after x numver of milliseconds
+* **put**, this is pretty much the _dispatch_ of Sagas, you add an action as input parameter to it.
+* **takeEvery**, this listens to a specific action type and runs a generator function in response to a specific action occurring
 
 ### Approach
 
@@ -159,8 +159,8 @@ export function* watchIncrementAsync() {
 
 As you can see above there isn't much to it. Let's repeat again the steps we need to take for every Saga we write:
 
-* define a watcher function / listener that listens to a specific action
-* define a generator function, also called a _worker saga_ that performs AJAX operations or some other asynchronous work and end it all with a call to `put` to relinquish control.
+* **define a watcher function** / listener that listens to a specific action
+* **define a generator function**, also called a _worker saga_ that performs AJAX operations or some other asynchronous work and end it all with a call to `put` to relinquish control.
 
 ### Run the Saga
 
@@ -170,6 +170,9 @@ We have forgotten a little thing which is triggering the Saga to start watching.
 // index.js - excerpt
 sagaMiddleware.run(watchIncrementAsync)
 ```
+
+### Using it in the app
+TODO
 
 Without this call, nothing will work, so don't forget it :\)
 
