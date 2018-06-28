@@ -333,7 +333,7 @@ const validate = values => {
   return errors;
 }
 ```
-Above we have now defined the `validate` function. We go through the `values` input parameter which is an object containing all of our field values. If we find that a certain values isn't what it should be like:
+Above we have now defined the `validate` function. We go through the `values` input parameter which is an object containing all of our field values. If we find that a certain values isn't what it should be, like:
 - not existing
 - not conforming to a pattern
 then we create an entry in the dictionary `errors` with an error message. The method `validate` will be invoked on each `keyup` event. Ok now we have everything set up and we are ready to move on to the next bit which is how do we display errors?
@@ -369,6 +369,130 @@ What we see above is that `renderField` is function that takes an object as a pa
 - **input**, this is our input value
 - **label**, this is a text label
 - **type**, the type of input, given the value of this we an choose to render different types of input components
-- **meta**, this is an object containing interesting information on the state of our input, if it has been interacted with, if it has an error and so on
+- **meta**, this is an object containing interesting information on the state of our input, if it has been interacted with, if it has an error and so on. 
+
+Having a look at the markup, we see that we can lay out this input parameters to create a nice looking input and a suitable place for our validation error:
+
+```html
+(
+    <div>
+      <label>{label}</label>
+      <div>
+        <input {...input} placeholder={label} type={type} />
+        {touched &&
+          ((error && <Error>{error}</Error>))}
+      </div>
+    </div>
+  )
+```
+Note, that we look on the property `touched`, which means if we interacted with the element and based on it being in that state then we display the error:
+
+```js
+{touched & ((error && <Error>{error}</Error>))}
+```
+
+Lastly we need to instruct our `Field` component to use this function, like so:
+
+```html
+<Field name="title" component={renderField} />
+```
+
+### Finishing up
+We have defined our validation function. We have defined a function that let's create our own representation of an input. Putting it all together our `TodoForm.js` should now look like this:
+
+```js
+// TodoForm.js
+
+import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
+import styled from 'styled-components';
+
+const Error = styled.div`
+  color: red;
+  font-weight: bold;
+  margin: 5px;
+  padding: 10px;
+  margin-top: 0px;
+`;
+
+const FormContainer = styled.div`
+  margin: 20px;
+  box-shadow: 0 0 5px grey;
+  padding: 20px;
+
+  input {
+    border: solid 1px grey;
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+
+  button {
+    border: solid 1px grey
+  }
+`;
+
+const validate = (values) => {
+  const errors = {};
+  if(!values.title) {
+    errors.title ="title is required";
+  }
+
+  return errors;
+}
+
+const renderField = ({
+  input,
+  label,
+  type,
+  meta: { touched, error }
+}) => {
+  return (
+    <div>
+      <label>{label}</label>
+      <div>
+        <input {...input} placeholder={label} type={type} />
+        {touched &&
+          ((error && <Error>{error}</Error>))}
+      </div>
+    </div>
+  )
+}
+
+class TodoForm extends Component {
+  render() {
+    const { handleSubmit, pristine, submitting, reset } = this.props;
+    return (
+      <FormContainer>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="title">Title</label>
+          </div>
+          <div>
+            <Field name="title" component={renderField} type="text"/>
+          </div>
+          <div>
+            <label htmlFor="email">Email</label>
+          </div>
+          <div>
+            <Field name="email" component="input" type="email"/>
+          </div>
+          <button onClick={reset} disabled={ pristine } type="submit">Reset</button>
+          <button disabled={ pristine || submitting } type="submit">Submit</button>
+        </form>
+      </FormContainer>
+    );
+  }
+}
+
+// Decorate the form component
+TodoForm = reduxForm({
+  form: 'todo',
+  validate
+})(TodoForm);
+
+export default TodoForm;
+
+```
 
 
